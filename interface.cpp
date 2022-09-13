@@ -1,7 +1,7 @@
 #include <iostream>
 #include "interface.h"
 #include <fstream>
-#include <ostream>
+#include <iostream>
 
 using namespace std;
 
@@ -12,31 +12,56 @@ void Interface::startInterface()
     cout << "Enter program lines or read (<filename>.py) at command line interface" << endl;
     cout << "Type 'help' for more information or 'quit' to exit" << endl;
 
-    string input;
-
-    cout << ">>>";
-
-    getline(cin, input);
-
     bool quitStatus = false;
 
     while (!quitStatus) {
+
+        // accepts user input
+        string input;
+        cout << ">>>";
+        getline(cin, input);
 
         // quit
         if (input == "quit()" || input == "quit") {
             quitStatus = true;
         }
 
-        //read needs to be read( <filename.py> )
-        //check if first 5 chars of text == read(
-        //check if last char is == .py)
+        // read
+        // gets fileName and fileExtension from input
         size_t extensionIndex;
         string fileExtension;
+        string fileName;
+
         extensionIndex = input.find_last_of(".");
         fileExtension = input.substr(extensionIndex);
-        cout << fileExtension << endl;
+        fileName = input.substr(5, extensionIndex - 2);
 
-        //if (input.substr(0,5) == "read(" || input.)
+        //checks that fileExtension is a python file.
+        if (input.substr(0, 5) == "read(" && fileExtension == ".py)") {
+
+            programCode.clear();
+
+            ifstream fileRead;
+            fileRead.open(fileName);
+
+            if (!fileRead) {
+                cout << "please enter valid file" << endl;
+            }
+
+            string lines;
+            while (getline(fileRead, lines)) {
+                programCode.push_back(lines);
+            }
+
+        }
+        else {
+            cout << "error or did not submit correct file extension" << endl;
+        }
+
+        // show
+        if (input == "show" || input == "show()") {
+
+        }
 
     }
 }
