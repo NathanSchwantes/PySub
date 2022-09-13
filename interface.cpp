@@ -30,10 +30,12 @@ void Interface::startInterface()
         //read needs to be read( <filename.py> )
         //check if first 5 chars of text == read(
         //check if last char is == .py)
-        vector<string> input;
-        vector<string> vlast(4);
-        copy(input.end() - vlast.size(), input.end(), vlast.begin());
-        cout << vlast.size() << endl;
+        size_t extensionIndex;
+        string fileExtension;
+        extensionIndex = input.find_last_of(".");
+        fileExtension = input.substr(extensionIndex);
+        cout << fileExtension << endl;
+
         //if (input.substr(0,5) == "read(" || input.)
 
     }
