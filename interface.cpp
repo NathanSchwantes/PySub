@@ -66,11 +66,21 @@ void Interface::startInterface()
 
         // show
         if (input == "show" || input == "show()") {
-            cout << "test" << endl;
-            //if (programCode.size() == 0) {
-            //    cout << "No file in memory to read from. Use 'read(<filename>.py)' command" << endl;
-            //}
+            if (programCode.size() == 0) {
+                cout << "No file in memory to read from. Use 'read(<filename>.py)' command" << endl;
+            }
+            else {
+                size_t lineCount = programCode.size();
+                for (int i = 0; i < lineCount; i++) {
+                    cout << '[' << i << ']' << ' ' << programCode.at(i) << endl;
+                }
+            }
         }
 
+        // clear
+        if (input == "clear" || input == "clear()") {
+            programCode.clear();
+            cout << "Stored data has sucessfully been cleared" << endl;
+        }
     }
 }
