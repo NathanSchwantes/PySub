@@ -9,9 +9,11 @@ typedef std::vector<std::string> programType;
 class Interface {
 private:
     programType programCode;
+    void helpUtility();
+    void commandHelpData(std::string);
 public:
     void startInterface();
-    void helpUtility();
+    
 };
 
 #endif

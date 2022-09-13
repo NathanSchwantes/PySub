@@ -84,8 +84,15 @@ void Interface::startInterface()
         }
 
         // help
-        if (input.substr(0, 5) == "help(" || input == "help" || input == "help()") {
+        // enter helpUtility
+        if (input == "help" || input == "help()") {
             helpUtility();
+        }
+        
+        if (input.substr(0, 5) == "help(" && input.back() == ')') {
+            string cmd = input.substr(5);
+            cmd.pop_back();
+            commandHelpData(cmd);
         }
     }
 }
@@ -98,5 +105,36 @@ void Interface::helpUtility() {
         string input;
         cout << "help>";
         getline(cin, input);
+
+        if (
+            input == "read" ||
+            input == "quit" ||
+            input == "clear" ||
+            input == "show" ||
+            input == "help"
+            ) {
+            commandHelpData(input);
+        }
+        else if (input == "exit") {
+            helpUtilityQuit = true;
+        }
+    }
+}
+
+void Interface::commandHelpData(string cmd) {
+    if (cmd == "read") {
+        cout << "use the read command like this swagertron" << endl;
+    }
+    else if (cmd == "quit") {
+        cout << "quit description... wip" << endl;
+    }
+    else if (cmd == "clear") {
+        cout << "clear description... wip" << endl;
+    }
+    else if (cmd == "show") {
+        cout << "show description... wip" << endl;
+    }
+    else if (cmd == "help") {
+        cout << "help description... wip" << endl;
     }
 }
