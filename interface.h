@@ -11,6 +11,7 @@ private:
     programType programCode;
 public:
     void startInterface();
+    void helpUtility();
 };
 
 #endif

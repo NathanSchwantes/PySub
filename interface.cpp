@@ -82,5 +82,21 @@ void Interface::startInterface()
             programCode.clear();
             cout << "Stored data has sucessfully been cleared" << endl;
         }
+
+        // help
+        if (input.substr(0, 5) == "help(" || input == "help" || input == "help()") {
+            helpUtility();
+        }
+    }
+}
+
+void Interface::helpUtility() {
+
+    bool helpUtilityQuit = false;
+    
+    while (!helpUtilityQuit) {
+        string input;
+        cout << "help>";
+        getline(cin, input);
     }
 }
