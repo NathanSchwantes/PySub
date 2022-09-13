@@ -28,37 +28,40 @@ void Interface::startInterface()
 
         // read
         // gets fileName and fileExtension from input
-        size_t extensionIndex;
-        string fileExtension;
-        string fileName;
+        if (input.substr(0, 5) == "read(") {
+            size_t extensionIndex;
+            string fileExtension;
+            string fileName;
 
-        extensionIndex = input.find_last_of(".");
-        fileExtension = input.substr(extensionIndex);
-        fileName = input.substr(5, extensionIndex - 2);
+            extensionIndex = input.find_last_of(".");
+            fileExtension = input.substr(extensionIndex);
+            fileName = input.substr(5, extensionIndex - 2);
+        
 
-        //checks that fileExtension is a python file.
-        if (input.substr(0, 5) == "read(" && fileExtension == ".py)") {
+            //checks that fileExtension is a python file.
+            if (fileExtension == ".py)") {
 
-            programCode.clear();
+                programCode.clear();
 
-            ifstream fileRead;
-            fileRead.open(fileName);
+                ifstream fileRead;
+                fileRead.open(fileName);
 
-            if (!fileRead) {
-                cout << "please enter valid file" << endl;
-            }
+                if (!fileRead) {
+                    cout << "please enter valid file" << endl;
+                }
 
-            string lines;
-            while (getline(fileRead, lines)) {
-                programCode.push_back(lines);
-            }
+                string lines;
+                while (getline(fileRead, lines)) {
+                    programCode.push_back(lines);
+                }
             
-            fileRead.close();
-            cout << "File sucessfully read. Use 'show' to view file content" << endl;
+                fileRead.close();
+                cout << "File sucessfully read. Use 'show' to view file content" << endl;
 
-        }
-        else {
-            cout << "error or did not submit correct file extension" << endl;
+            }
+            else {
+                cout << "error or did not submit correct file extension" << endl;
+            }
         }
 
         // show
