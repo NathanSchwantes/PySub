@@ -52,6 +52,9 @@ void Interface::startInterface()
             while (getline(fileRead, lines)) {
                 programCode.push_back(lines);
             }
+            
+            fileRead.close();
+            cout << "File sucessfully read. Use 'show' to view file content" << endl;
 
         }
         else {
@@ -60,7 +63,10 @@ void Interface::startInterface()
 
         // show
         if (input == "show" || input == "show()") {
-
+            cout << "test" << endl;
+            //if (programCode.size() == 0) {
+            //    cout << "No file in memory to read from. Use 'read(<filename>.py)' command" << endl;
+            //}
         }
 
     }
