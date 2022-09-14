@@ -48,17 +48,17 @@ void Interface::startInterface()
                 fileRead.open(fileName);
 
                 if (!fileRead) {
-                    cout << "error reading file" << endl;
+                    cout << "Error reading file, please type correct filename" << endl;
+                    break;
                 }
 
                 string lines;
                 while (getline(fileRead, lines)) {
                     programCode.push_back(lines);
                 }
-            
-                fileRead.close();
+                
                 cout << "File sucessfully read. Use 'show' to view file content" << endl;
-
+                fileRead.close();
             }
             else {
                 cout << "Please enter filename with .py extension" << endl;
@@ -180,6 +180,7 @@ bool Interface::checkValidInput(string input) {
         input == "show" ||
         input == "help" ||
         input == "commands" ||
+        input == "read()" ||
         input == "quit()" ||
         input == "clear()" ||
         input == "show()" ||
@@ -192,6 +193,19 @@ bool Interface::checkValidInput(string input) {
         input == "help(commands)"
         ) {
         return true;
+    }
+    else if (input.substr(0, 5) == "read(" && input.size() > 8 && input.find(".") != string::npos) {
+        size_t extensionIndex;
+        string fileExtension;
+        string fileName;
+
+        extensionIndex = input.find_last_of(".");
+        fileExtension = input.substr(extensionIndex);
+        fileName = input.substr(5, extensionIndex - 2);
+
+        if (fileExtension == ".py") {
+            return true;
+        }
     }
     else {
         return false;
