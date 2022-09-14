@@ -18,7 +18,7 @@ void Interface::startInterface()
 
         // accepts user input
         string input;
-        cout << ">>>";
+        cout << ">>> ";
         getline(cin, input);
 
         // quit
@@ -28,7 +28,7 @@ void Interface::startInterface()
 
         // read
         // gets fileName and fileExtension from input
-        if (input.substr(0, 5) == "read(") {
+        if (input.substr(0, 5) == "read(" && input.size() > 8 && input.find(".") != string::npos) {
             size_t extensionIndex;
             string fileExtension;
             string fileName;
@@ -38,7 +38,8 @@ void Interface::startInterface()
             fileName = input.substr(5, extensionIndex - 2);
         
 
-            //checks that fileExtension is a python file.
+            //checks that fileExtension is a python file
+            //reads the file into the programCode data structure
             if (fileExtension == ".py)") {
 
                 programCode.clear();
@@ -47,7 +48,7 @@ void Interface::startInterface()
                 fileRead.open(fileName);
 
                 if (!fileRead) {
-                    cout << "please enter valid file" << endl;
+                    cout << "error reading file" << endl;
                 }
 
                 string lines;
@@ -60,7 +61,7 @@ void Interface::startInterface()
 
             }
             else {
-                cout << "error or did not submit correct file extension" << endl;
+                cout << "Please enter filename with .py extension" << endl;
             }
         }
 
@@ -89,10 +90,21 @@ void Interface::startInterface()
             helpUtility();
         }
         
+        // gets command if user inputted it using the help funciton
         if (input.substr(0, 5) == "help(" && input.back() == ')') {
             string cmd = input.substr(5);
             cmd.pop_back();
             commandHelpData(cmd);
+        }
+
+        // if user forgets to input as a function
+        if (input == "read" || input == "read()") {
+            commandHelpData("read");
+        }
+
+        // if user inputs unsupported command, direct them to helpUtility
+        if (!checkValidInput(input)) {
+            cout << "ERROR: UNSUPPORTED COMMAND" << endl << "Type 'help(commands)' for a list of supported commands" << endl;
         }
     }
 }
@@ -100,41 +112,88 @@ void Interface::startInterface()
 void Interface::helpUtility() {
 
     bool helpUtilityQuit = false;
+
+    cout << endl << "Welcome to the help Utility!" << endl << endl;
+    cout << "* Type 'exit' to return to the CLI" << endl;
+    cout << "* To see all commands, type 'commands'" << endl;
+    cout << "* To get a description of any command, just type the command within help Utility" << endl;
     
     while (!helpUtilityQuit) {
+
+        // get input from user within helpUtility
         string input;
-        cout << "help>";
+        cout << "help> ";
         getline(cin, input);
 
-        if (
-            input == "read" ||
-            input == "quit" ||
-            input == "clear" ||
-            input == "show" ||
-            input == "help"
-            ) {
+        // checks if they inputted a supported command
+        if (checkValidInput(input)) {
             commandHelpData(input);
         }
         else if (input == "exit") {
             helpUtilityQuit = true;
         }
+        else {
+            cout << "Type 'commands' for a list of supported commands" << endl;
+        }
     }
 }
 
 void Interface::commandHelpData(string cmd) {
+    // HelpData stored which can be called to print a description of a command
     if (cmd == "read") {
-        cout << "use the read command like this swagertron" << endl;
+        cout << "Use: 'read(<filename>.py)' to read the data from a Python file." << endl;
     }
     else if (cmd == "quit") {
-        cout << "quit description... wip" << endl;
+        cout << "Use: 'quit' or 'quit()' to exit the PySub CLI." << endl;
     }
     else if (cmd == "clear") {
-        cout << "clear description... wip" << endl;
+        cout << "Use: 'clear' or 'clear()' to clear any data stored by the read() command." << endl;
     }
     else if (cmd == "show") {
-        cout << "show description... wip" << endl;
+        cout << "Use: 'show' or 'show()' to print the data from a previously read() Python file line-by-line." << endl;
     }
     else if (cmd == "help") {
-        cout << "help description... wip" << endl;
+        cout << "Use: 'help' or 'help(<command>)' to enter the help Utility which provides descriptions of every command" << endl;
+    }
+    else if (cmd == "commands") {
+        cout << endl << "Supported Commands:" << endl << endl;
+        cout << "read   ";
+        cout << "quit   ";
+        cout << "clear" << endl;
+        cout << "show   ";
+        cout << "help" << endl << endl;
+        cout << "NOTE: All commands can also be entered as a function:" << endl << endl;
+        cout << "read()   ";
+        cout << "quit()   ";
+        cout << "clear()" << endl;
+        cout << "show()   ";
+        cout << "help()" << endl << endl;
+    }
+}
+
+// stores all possible valid user input
+bool Interface::checkValidInput(string input) {
+    if (
+        input == "read" ||
+        input == "quit" ||
+        input == "clear" ||
+        input == "show" ||
+        input == "help" ||
+        input == "commands" ||
+        input == "quit()" ||
+        input == "clear()" ||
+        input == "show()" ||
+        input == "help()" ||
+        input == "help(help)" ||
+        input == "help(read)" ||
+        input == "help(clear)" ||
+        input == "help(show)" ||
+        input == "help(quit)" ||
+        input == "help(commands)"
+        ) {
+        return true;
+    }
+    else {
+        return false;
     }
 }

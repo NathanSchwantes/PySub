@@ -11,6 +11,7 @@ private:
     programType programCode;
     void helpUtility();
     void commandHelpData(std::string);
+    bool checkValidInput(std::string);
 public:
     void startInterface();
     
