@@ -10,29 +10,38 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
 	categoryType category;
 	tokenLineType tokenLine;
+	string tokenText;
 
 	for (int i = 0; i < inputCode.size(); i++) {
 
+		// INDENT
 		if (isspace(inputCode[i][0])) {
 			category = categoryType::INDENT;
-			tokenLine.push_back(make_pair("_____", category));
-			cout << "indet" << endl;
+			tokenText = "_____";
+			tokenLine.push_back(make_pair(tokenText, category));
 		}
 
 		for (int j = 0; j < inputCode[i].size(); j++) {
 
+			// COMMENT
 			if (inputCode[i][j] == '#') {
 				category = categoryType::COMMENT;
-				tokenLine.push_back(make_pair("#", category));
-				cout << "commet" << endl;
-				return true;
+				tokenText = "#";
+				tokenLine.push_back(make_pair(tokenText, category));
 			}
 
+			// NUMERIC LITERAL
+			if (isdigit(inputCode[i][j])) {
+				tokenText.clear();
+				while (isdigit(inputCode[i][j])) {
+					tokenText.push_back(inputCode[i][j]);
+					j++;
+				}
+				category = categoryType::NUMERIC_LITERAL;
+				tokenLine.push_back(make_pair(tokenText, category));
+				cout << tokenLine[1].first << endl;
+			}
 		}
 	}
 	return false;
-}
-
-void LexicalAnalyzer::addTokens(tokenLineType tokenLine, string tokenText, categoryType category) {
-	tokenLine.push_back(make_pair(tokenText, category));
 }

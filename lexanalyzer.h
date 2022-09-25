@@ -31,7 +31,6 @@ private:
 	tokenType tokenInfo;
 public:
 	bool createTokens(vector<string>);
-	void addTokens(tokenLineType, string, categoryType);
 };
 
 #endif
