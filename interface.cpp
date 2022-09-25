@@ -1,12 +1,15 @@
 #include <iostream>
 #include "interface.h"
+#include "lexanalyzer.h"
 #include <fstream>
-#include <iostream>
 
 using namespace std;
 
 void Interface::startInterface()
 {
+    // lexicalAnalyzer class declaration
+    LexicalAnalyzer lexAnalysis;
+
     cout << "PySUB Interpreter 1.0 on Windows (September 2022)" << endl;
     cout << "By: Nathan Schwantes - CSCI 230 - Fall 2022" << endl;
     cout << "Enter program lines or read (<filename>.py) at command line interface" << endl;
@@ -62,6 +65,16 @@ void Interface::startInterface()
             }
             else {
                 cout << "Please enter filename with .py extension" << endl;
+            }
+        }
+
+        // show tokens
+        if (input == "show(tokens)") {
+            if (programCode.size() == 0) {
+                cout << "No file in memory to read from. Use 'read(<filename>.py)' command" << endl;
+            }
+            else {
+                lexAnalysis.createTokens(programCode);
             }
         }
 
@@ -178,6 +191,7 @@ bool Interface::checkValidInput(string input) {
         input == "quit" ||
         input == "clear" ||
         input == "show" ||
+        input == "show(tokens)" ||
         input == "help" ||
         input == "commands" ||
         input == "read()" ||

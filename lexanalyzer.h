@@ -2,6 +2,7 @@
 #define LEXANALYZER_H
 
 using namespace std;
+
 #include <vector>
 #include <string>
 
@@ -22,13 +23,15 @@ enum class categoryType {
 	UNKNOWN
 };
 
-class lexicalAnalyzer {
+class LexicalAnalyzer {
 private:
 	typedef vector<vector<pair<string, categoryType>>> tokenType;
 	typedef vector<pair<string, categoryType>> tokenLineType;
 	typedef pair<string, categoryType> pairType;
 	tokenType tokenInfo;
 public:
+	bool createTokens(vector<string>);
+	void addTokens(tokenLineType, string, categoryType);
 };
 
 #endif

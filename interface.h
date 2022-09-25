@@ -14,7 +14,6 @@ private:
     bool checkValidInput(std::string);
 public:
     void startInterface();
-    
 };
 
 #endif
