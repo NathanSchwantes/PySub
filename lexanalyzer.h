@@ -2,6 +2,8 @@
 #define LEXANALYZER_H
 
 using namespace std;
+#include <vector>
+#include <string>
 
 enum class categoryType {
 	KEYWORD,
@@ -26,4 +28,7 @@ private:
 	typedef vector<pair<string, categoryType>> tokenLineType;
 	typedef pair<string, categoryType> pairType;
 	tokenType tokenInfo;
+public:
 };
+
+#endif
