@@ -38,7 +38,6 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				}
 				category = categoryType::NUMERIC_LITERAL;
 				tokenLine.push_back(make_pair(tokenText, category));
-				cout << "fart" << endl;
 			}
 
 			// KEYWORD, LOGICAL_OP, IDENTIFIER
@@ -63,6 +62,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 					) {
 					category = categoryType::KEYWORD;
 					tokenLine.push_back(make_pair(tokenText, category));
+					j++;
 				}
 
 				// LOGICAL_OP
@@ -73,19 +73,34 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 					) {
 					category = categoryType::LOGICAL_OP;
 					tokenLine.push_back(make_pair(tokenText, category));
+					j++;
 				}
 
 				// IDENTIFIER
 				else {
 					category = categoryType::IDENTIFIER;
 					tokenLine.push_back(make_pair(tokenText, category));
+					j++;
 				}
 			}
 
-			// 
-			if (inputCode[i][j] == '"' || "'") {
+			// STRING_LITERAL
 
+			// single quotation
+			if (inputCode[i][j] == '\'') {
+
+				string tokenText;
+				for (j = j + 1; inputCode[i][j] == '\''; j++) {
+					tokenText.push_back(inputCode[i][j]);
+				}
+				tokenText.insert(0, "'");
+				category = categoryType::STRING_LITERAL;
+				tokenLine.push_back(make_pair(tokenText, category));
 			}
 		}
+		for (int k = 0; k < tokenLine.size(); k++) {
+			cout << tokenLine[k].first << "->";
+		}
 	}
+	return false;
 }
