@@ -41,7 +41,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				cout << "fart" << endl;
 			}
 
-			// ALPHABETIC CHARACTERS
+			// KEYWORD, LOGICAL_OP, IDENTIFIER
 			if (isalpha(inputCode[i][j])) {
 
 				// local variable to encapsulate all consecutive alphabetic characters
@@ -65,7 +65,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 					tokenLine.push_back(make_pair(tokenText, category));
 				}
 
-				// LOGICAL OPERATOR
+				// LOGICAL_OP
 				if (
 					tokenText == "and" ||
 					tokenText == "or" ||
@@ -77,10 +77,15 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
 				// IDENTIFIER
 				else {
-
+					category = categoryType::IDENTIFIER;
+					tokenLine.push_back(make_pair(tokenText, category));
 				}
+			}
+
+			// 
+			if (inputCode[i][j] == '"' || "'") {
+
 			}
 		}
 	}
-	return false;
 }
