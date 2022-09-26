@@ -32,13 +32,53 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
 				// local variable to encapsulate all consecutive digits
 				string tokenText;
-
 				while (isdigit(inputCode[i][j])) {
 					tokenText.push_back(inputCode[i][j]);
 					j++;
 				}
 				category = categoryType::NUMERIC_LITERAL;
 				tokenLine.push_back(make_pair(tokenText, category));
+				cout << "fart" << endl;
+			}
+
+			// ALPHABETIC CHARACTERS
+			if (isalpha(inputCode[i][j])) {
+
+				// local variable to encapsulate all consecutive alphabetic characters
+				string tokenText;
+				while (isalpha(inputCode[i][j])) {
+					tokenText.push_back(inputCode[i][j]);
+					j++;
+				}
+
+				// KEYWORD
+				if (
+					tokenText == "print" ||
+					tokenText == "if" ||
+					tokenText == "elif" ||
+					tokenText == "else" ||
+					tokenText == "while" ||
+					tokenText == "int" ||
+					tokenText == "input"
+					) {
+					category = categoryType::KEYWORD;
+					tokenLine.push_back(make_pair(tokenText, category));
+				}
+
+				// LOGICAL OPERATOR
+				if (
+					tokenText == "and" ||
+					tokenText == "or" ||
+					tokenText == "not"
+					) {
+					category = categoryType::LOGICAL_OP;
+					tokenLine.push_back(make_pair(tokenText, category));
+				}
+
+				// IDENTIFIER
+				else {
+
+				}
 			}
 		}
 	}
