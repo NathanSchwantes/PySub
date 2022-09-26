@@ -10,15 +10,13 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
 	categoryType category;
 	tokenLineType tokenLine;
-	string tokenText;
 
 	for (int i = 0; i < inputCode.size(); i++) {
 
 		// INDENT
 		if (isspace(inputCode[i][0])) {
 			category = categoryType::INDENT;
-			tokenText = "_____";
-			tokenLine.push_back(make_pair(tokenText, category));
+			tokenLine.push_back(make_pair("____", category));
 		}
 
 		for (int j = 0; j < inputCode[i].size(); j++) {
@@ -26,20 +24,21 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			// COMMENT
 			if (inputCode[i][j] == '#') {
 				category = categoryType::COMMENT;
-				tokenText = "#";
-				tokenLine.push_back(make_pair(tokenText, category));
+				tokenLine.push_back(make_pair("#", category));
 			}
 
 			// NUMERIC LITERAL
 			if (isdigit(inputCode[i][j])) {
-				tokenText.clear();
+
+				// local variable to encapsulate all consecutive digits
+				string tokenText;
+
 				while (isdigit(inputCode[i][j])) {
 					tokenText.push_back(inputCode[i][j]);
 					j++;
 				}
 				category = categoryType::NUMERIC_LITERAL;
 				tokenLine.push_back(make_pair(tokenText, category));
-				cout << tokenLine[1].first << endl;
 			}
 		}
 	}
