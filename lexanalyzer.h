@@ -14,6 +14,7 @@ enum class categoryType {
 	ASSIGNMENT_OP,
 	ARITH_OP,
 	LOGICAL_OP,
+	RELATIONAL_OP,
 	LEFT_PAREN,
 	RIGHT_PAREN,
 	COLON,

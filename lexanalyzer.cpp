@@ -153,44 +153,44 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
 			// ASSIGNMENT_OP
 			if (inputCode[i][j] == '=') {
-				category = categoryType::ASSIGNMENT_OP;
+				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("=", category));
 			}
 
 			// RELATIONAL_OP
 			// "<"
 			if (inputCode[i][j] == '<') {
-				category = categoryType::ASSIGNMENT_OP;
+				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("<", category));
 			}
 
 			// ">"
 			if (inputCode[i][j] == '>') {
-				category = categoryType::ASSIGNMENT_OP;
+				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair(">", category));
 			}
 
 			// "<="
 			if (inputCode[i][j] == '<' && inputCode[i][j + 1] == '=') {
-				category = categoryType::ASSIGNMENT_OP;
+				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("<=", category));
 			}
 
 			// ">="
 			if (inputCode[i][j] == '>' && inputCode[i][j + 1] == '=') {
-				category = categoryType::ASSIGNMENT_OP;
+				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair(">=", category));
 			}
 
 			// "=="
 			if (inputCode[i][j] == '=' && inputCode[i][j + 1] == '=') {
-				category = categoryType::ASSIGNMENT_OP;
+				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("==", category));
 			}
 
 			// "!="
 			if (inputCode[i][j] == '!' && inputCode[i][j + 1] == '=') {
-				category = categoryType::ASSIGNMENT_OP;
+				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("!=", category));
 			}
 
@@ -224,6 +224,13 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				category = categoryType::ARITH_OP;
 				tokenLine.push_back(make_pair("%", category));
 			}
+
+			else {
+				category = categoryType::UNKNOWN;
+				string tokenText;
+				tokenText = inputCode[i][j];
+				tokenLine.push_back(make_pair(tokenText, category));
+			}
 		}
 		// add tokenLine to the overall allToken structure
 		allTokens.push_back(tokenLine);
@@ -235,7 +242,24 @@ void LexicalAnalyzer::printTokens(vector<vector<pair<string, categoryType>>> all
 	for (int i = 0; i < allTokens.size(); i++) {
 		cout << "Line #" << i << ":" << endl;
 		for (int j = 0; j < allTokens[i].size(); j++) {
-
+			cout << "Token[" << j << "]: " << allTokens[i][j].first << " - ";
+			switch (allTokens[i][j].second) {
+			case categoryType::KEYWORD: cout << "KEYWORD"; break;
+			case categoryType::IDENTIFIER: cout << "IDENTIFIER"; break;
+			case categoryType::STRING_LITERAL: cout << "STRING_LITERAL"; break;
+			case categoryType::NUMERIC_LITERAL: cout << "NUMERIC_LITERAL"; break;
+			case categoryType::ASSIGNMENT_OP: cout << "ASSIGNMENT_OP"; break;
+			case categoryType::ARITH_OP: cout << "ARITH_OP"; break;
+			case categoryType::LOGICAL_OP: cout << "LOGICAL_OP"; break;
+			case categoryType::RELATIONAL_OP: cout << "RELATIONAL_OP"; break;
+			case categoryType::LEFT_PAREN: cout << "LEFT_PAREN"; break;
+			case categoryType::RIGHT_PAREN: cout << "RIGHT_PAREN"; break;
+			case categoryType::COLON: cout << "COLON"; break;
+			case categoryType::COMMA: cout << "COMMA"; break;
+			case categoryType::COMMENT: cout << "COMMENT"; break;
+			case categoryType::INDENT: cout << "INDENT"; break;
+			case categoryType::UNKNOWN: cout << "UNKNOWN"; break;
+			}
 		}
 	}
 }
