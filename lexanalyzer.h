@@ -31,8 +31,8 @@ private:
 	typedef pair<string, categoryType> pairType;
 	tokenType tokenInfo;
 public:
-	bool createTokens(vector<string>);
-	void printTokens(vector<vector<pair<string, categoryType>>>);
+	static bool createTokens(vector<string>);
+	static void printTokens(vector<vector<pair<string, categoryType>>>);
 };
 
 #endif

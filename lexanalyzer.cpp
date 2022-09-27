@@ -27,9 +27,9 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			// COMMENT
 			if (inputCode[i][j] == '#') {
 
-				// local variable to encapsulate all characeters on line
+				// local variable to encapsulate all characters on line
 				string tokenText;
-				for (j; j < inputCode[i].size(); j++) {
+				for (; j < inputCode[i].size(); j++) {
 					tokenText.push_back(inputCode[i][j]);
 				}
 				category = categoryType::COMMENT;
@@ -37,7 +37,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			}
 
 			// NUMERIC LITERAL
-			if (isdigit(inputCode[i][j])) {
+			else if (isdigit(inputCode[i][j])) {
 
 				// local variable to encapsulate all consecutive digits
 				string tokenText;
@@ -50,7 +50,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			}
 
 			// KEYWORD, LOGICAL_OP, IDENTIFIER
-			if (isalpha(inputCode[i][j])) {
+			else if (isalpha(inputCode[i][j])) {
 
 				// local variable to encapsulate all consecutive alphabetic characters
 				string tokenText;
@@ -74,7 +74,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				}
 
 				// LOGICAL_OP
-				if (
+				else if (
 					tokenText == "and" ||
 					tokenText == "or" ||
 					tokenText == "not"
@@ -84,18 +84,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				}
 
 				// IDENTIFIER
-				if (
-					tokenText != "print" &&
-					tokenText != "if" &&
-					tokenText != "elif" &&
-					tokenText != "else" &&
-					tokenText != "while" &&
-					tokenText != "int" &&
-					tokenText != "input" &&
-					tokenText != "and" &&
-					tokenText != "or" &&
-					tokenText != "not"
-					) {
+				else {
 					category = categoryType::IDENTIFIER;
 					tokenLine.push_back(make_pair(tokenText, category));
 				}
@@ -104,12 +93,12 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			// STRING_LITERAL
 
 			// single quotation case
-			if (inputCode[i][j] == '\'') {
+			else if (inputCode[i][j] == '\'') {
 				j++;
 
 				// local variable to encapsulate all characters within a quotation pair
 				string tokenText;
-				for (j; inputCode[i][j] != '\''; j++) {
+				for (; inputCode[i][j] != '\''; j++) {
 					tokenText.push_back(inputCode[i][j]);
 				}
 				tokenText.insert(0, "'");
@@ -119,12 +108,12 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			}
 
 			// double quotation case
-			if (inputCode[i][j] == '\"') {
+			else if (inputCode[i][j] == '\"') {
 				j++;
 
 				// local variable to encapsulate all characters within a quotation pair
 				string tokenText;
-				for (j; inputCode[i][j] != '\"'; j++) {
+				for (; inputCode[i][j] != '\"'; j++) {
 					tokenText.push_back(inputCode[i][j]);
 				}
 				tokenText.insert(0, "\"");
@@ -134,109 +123,113 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			}
 
 			// LEFT_PAREN
-			if (inputCode[i][j] == '(') {
+			else if (inputCode[i][j] == '(') {
 				category = categoryType::LEFT_PAREN;
 				tokenLine.push_back(make_pair("(", category));
 			}
 
 			// RIGHT_PAREN
-			if (inputCode[i][j] == ')') {
+			else if (inputCode[i][j] == ')') {
 				category = categoryType::RIGHT_PAREN;
 				tokenLine.push_back(make_pair(")", category));
 			}
 
 			// COLON
-			if (inputCode[i][j] == ':') {
+			else if (inputCode[i][j] == ':') {
 				category = categoryType::COLON;
 				tokenLine.push_back(make_pair(":", category));
 			}
 
 			// COMMA
-			if (inputCode[i][j] == ',') {
+			else if (inputCode[i][j] == ',') {
 				category = categoryType::COMMA;
 				tokenLine.push_back(make_pair(",", category));
 			}
 
 			// ASSIGNMENT_OP
-			if (inputCode[i][j] == '=') {
+			else if (inputCode[i][j] == '=') {
 				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("=", category));
 			}
 
 			// RELATIONAL_OP
 			// "<"
-			if (inputCode[i][j] == '<') {
+			else if (inputCode[i][j] == '<') {
 				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("<", category));
 			}
 
 			// ">"
-			if (inputCode[i][j] == '>') {
+			else if (inputCode[i][j] == '>') {
 				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair(">", category));
 			}
 
 			// "<="
-			if (inputCode[i][j] == '<' && inputCode[i][j + 1] == '=') {
+			else if (inputCode[i][j] == '<' && inputCode[i][j + 1] == '=') {
 				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("<=", category));
 			}
 
 			// ">="
-			if (inputCode[i][j] == '>' && inputCode[i][j + 1] == '=') {
+			else if (inputCode[i][j] == '>' && inputCode[i][j + 1] == '=') {
 				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair(">=", category));
 			}
 
 			// "=="
-			if (inputCode[i][j] == '=' && inputCode[i][j + 1] == '=') {
+			else if (inputCode[i][j] == '=' && inputCode[i][j + 1] == '=') {
 				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("==", category));
 			}
 
 			// "!="
-			if (inputCode[i][j] == '!' && inputCode[i][j + 1] == '=') {
+			else if (inputCode[i][j] == '!' && inputCode[i][j + 1] == '=') {
 				category = categoryType::RELATIONAL_OP;
 				tokenLine.push_back(make_pair("!=", category));
 			}
 
 			// ARITH_OP
 			// "+"
-			if (inputCode[i][j] == '+') {
+			else if (inputCode[i][j] == '+') {
 				category = categoryType::ARITH_OP;
 				tokenLine.push_back(make_pair("+", category));
 			}
 
 			// "-"
-			if (inputCode[i][j] == '-') {
+			else if (inputCode[i][j] == '-') {
 				category = categoryType::ARITH_OP;
 				tokenLine.push_back(make_pair("-", category));
 			}
 
 			// "*"
-			if (inputCode[i][j] == '*') {
+			else if (inputCode[i][j] == '*') {
 				category = categoryType::ARITH_OP;
 				tokenLine.push_back(make_pair("*", category));
 			}
 
 			// "/"
-			if (inputCode[i][j] == '/') {
+			else if (inputCode[i][j] == '/') {
 				category = categoryType::ARITH_OP;
 				tokenLine.push_back(make_pair("/", category));
 			}
 
 			// "%"
-			if (inputCode[i][j] == '%') {
+			else if (inputCode[i][j] == '%') {
 				category = categoryType::ARITH_OP;
 				tokenLine.push_back(make_pair("%", category));
 			}
 
-			//else {
-			//	category = categoryType::UNKNOWN;
-			//	string tokenText;
-			//	tokenText = inputCode[i][j];
-			//	tokenLine.push_back(make_pair(tokenText, category));
-			//}
+            else if (inputCode[i][j] == ' ') {
+                // do nothing
+            }
+
+			else {
+				category = categoryType::UNKNOWN;
+				string tokenText;
+				tokenText = inputCode[i][j];
+				tokenLine.push_back(make_pair(tokenText, category));
+			}
 		}
 		// add tokenLine to the overall allToken structure
 		allTokens.push_back(tokenLine);
