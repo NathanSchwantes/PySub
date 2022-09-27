@@ -27,6 +27,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			// COMMENT
 			if (inputCode[i][j] == '#') {
 
+				// local variable to encapsulate all characeters on line
 				string tokenText;
 				for (j; j < inputCode[i].size(); j++) {
 					tokenText.push_back(inputCode[i][j]);
@@ -245,6 +246,8 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 }
 
 void LexicalAnalyzer::printTokens(vector<vector<pair<string, categoryType>>> allTokens) {
+
+	// two-dimensional for loop to display all data within tokenType structure
 	for (int i = 0; i < allTokens.size(); i++) {
 
 		cout << "Line #" << i << ":" << endl;
@@ -253,6 +256,7 @@ void LexicalAnalyzer::printTokens(vector<vector<pair<string, categoryType>>> all
 
 			cout << "Token[" << j << "]: " << allTokens[i][j].first << " - ";
 
+			// print the categoryType
 			switch (allTokens[i][j].second) {
 			case categoryType::KEYWORD: cout << "KEYWORD" << endl; break;
 			case categoryType::IDENTIFIER: cout << "IDENTIFIER" << endl; break;
