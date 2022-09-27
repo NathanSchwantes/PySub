@@ -265,7 +265,6 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 		// add tokenLine to the overall allToken structure
 		tokenInfo.push_back(tokenLine);
 	}
-	printTokens(tokenInfo);
 	return true;
 }
 

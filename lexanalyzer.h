@@ -24,12 +24,11 @@ enum class categoryType {
 	UNKNOWN
 };
 
-typedef vector<vector<pair<string, categoryType>>> tokenType;
-typedef vector<pair<string, categoryType>> tokenLineType;
-typedef pair<string, categoryType> pairType;
-
 class LexicalAnalyzer {
 private:
+    typedef vector<vector<pair<string, categoryType>>> tokenType;
+    typedef vector<pair<string, categoryType>> tokenLineType;
+    typedef pair<string, categoryType> pairType;
     tokenLineType tokenLine;
     pairType pair;
 public:

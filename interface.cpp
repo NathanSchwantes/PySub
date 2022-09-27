@@ -59,7 +59,10 @@ void Interface::startInterface()
                 while (getline(fileRead, lines)) {
                     programCode.push_back(lines);
                 }
-                
+
+                // create tokens and add to tokenInfo struct
+                lexAnalysis.createTokens(programCode);
+
                 cout << "File sucessfully read. Use 'show' to view file content" << endl;
                 fileRead.close();
             }
@@ -70,11 +73,11 @@ void Interface::startInterface()
 
         // show tokens
         else if (input == "show(tokens)") {
-            if (programCode.size() == 0) {
+            if (lexAnalysis.tokenInfo.size() == 0) {
                 cout << "No file in memory to read from. Use 'read(<filename>.py)' command" << endl;
             }
             else {
-                lexAnalysis.createTokens(programCode);
+                lexAnalysis.printTokens(lexAnalysis.tokenInfo);
             }
         }
 
