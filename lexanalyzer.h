@@ -31,6 +31,7 @@ private:
 	tokenType tokenInfo;
 public:
 	bool createTokens(vector<string>);
+	void printTokens(vector<vector<pair<string, categoryType>>>);
 };
 
 #endif

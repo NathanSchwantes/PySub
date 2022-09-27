@@ -10,8 +10,11 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
 	categoryType category;
 	tokenLineType tokenLine;
+	tokenType allTokens;
 
 	for (int i = 0; i < inputCode.size(); i++) {
+
+		tokenLine.clear();
 
 		// INDENT
 		if (isspace(inputCode[i][0])) {
@@ -102,8 +105,6 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				string tokenText;
 				for (j; inputCode[i][j] != '\''; j++) {
 					tokenText.push_back(inputCode[i][j]);
-					cout << j << endl;
-					cout << inputCode[i][j] << endl;
 				}
 				tokenText.insert(0, "'");
 				tokenText.append("'");
@@ -224,6 +225,17 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				tokenLine.push_back(make_pair("%", category));
 			}
 		}
+		// add tokenLine to the overall allToken structure
+		allTokens.push_back(tokenLine);
 	}
-	return false;
+	return true;
+}
+
+void LexicalAnalyzer::printTokens(vector<vector<pair<string, categoryType>>> allTokens) {
+	for (int i = 0; i < allTokens.size(); i++) {
+		cout << "Line #" << i << ":" << endl;
+		for (int j = 0; j < allTokens[i].size(); j++) {
+
+		}
+	}
 }
