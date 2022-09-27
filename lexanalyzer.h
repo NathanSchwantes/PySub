@@ -24,15 +24,18 @@ enum class categoryType {
 	UNKNOWN
 };
 
+typedef vector<vector<pair<string, categoryType>>> tokenType;
+typedef vector<pair<string, categoryType>> tokenLineType;
+typedef pair<string, categoryType> pairType;
+
 class LexicalAnalyzer {
 private:
-	typedef vector<vector<pair<string, categoryType>>> tokenType;
-	typedef vector<pair<string, categoryType>> tokenLineType;
-	typedef pair<string, categoryType> pairType;
 	tokenType tokenInfo;
+    tokenLineType tokenLine;
+    pairType pair;
 public:
-	static bool createTokens(vector<string>);
-	static void printTokens(vector<vector<pair<string, categoryType>>>);
+	bool createTokens(vector<string>);
+	void printTokens(vector<vector<std::pair<string, categoryType>>>);
 };
 
 #endif

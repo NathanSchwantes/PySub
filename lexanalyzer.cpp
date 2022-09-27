@@ -8,18 +8,15 @@ using namespace std;
 
 bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
-	categoryType category;
-	tokenLineType tokenLine;
-	tokenType allTokens;
-
 	for (int i = 0; i < inputCode.size(); i++) {
 
 		tokenLine.clear();
 
 		// INDENT
 		if (isspace(inputCode[i][0])) {
-			category = categoryType::INDENT;
-			tokenLine.push_back(make_pair("____", category));
+            pair.first = "____";
+            pair.second = categoryType::INDENT;
+			tokenLine.push_back(pair);
 		}
 
 		for (int j = 0; j < inputCode[i].size(); j++) {
@@ -32,8 +29,9 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				for (; j < inputCode[i].size(); j++) {
 					tokenText.push_back(inputCode[i][j]);
 				}
-				category = categoryType::COMMENT;
-				tokenLine.push_back(make_pair(tokenText, category));
+                pair.first = tokenText;
+                pair.second = categoryType::COMMENT;
+                tokenLine.push_back(pair);
 			}
 
 			// NUMERIC LITERAL
@@ -236,13 +234,13 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			}
 		}
 		// add tokenLine to the overall allToken structure
-		allTokens.push_back(tokenLine);
+		tokenInfo.push_back(tokenLine);
 	}
-	printTokens(allTokens);
+	printTokens(tokenInfo);
 	return true;
 }
 
-void LexicalAnalyzer::printTokens(vector<vector<pair<string, categoryType>>> allTokens) {
+void LexicalAnalyzer::printTokens(vector<vector<std::pair<string, categoryType>>> allTokens) {
 
 	// two-dimensional for loop to display all data within tokenType structure
 	for (int i = 0; i < allTokens.size(); i++) {
