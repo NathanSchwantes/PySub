@@ -94,6 +94,8 @@ void Interface::startInterface()
         // clear
         else if (input == "clear" || input == "clear()") {
             programCode.clear();
+            // clear tokenInfo strcuture
+            lexAnalysis.tokenInfo.clear();
             cout << "Stored data has sucessfully been cleared" << endl;
         }
 

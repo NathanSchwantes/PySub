@@ -30,10 +30,10 @@ typedef pair<string, categoryType> pairType;
 
 class LexicalAnalyzer {
 private:
-	tokenType tokenInfo;
     tokenLineType tokenLine;
     pairType pair;
 public:
+    tokenType tokenInfo;
 	bool createTokens(vector<string>);
 	void printTokens(vector<vector<std::pair<string, categoryType>>>);
 };
