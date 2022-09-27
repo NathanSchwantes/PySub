@@ -31,7 +31,7 @@ void Interface::startInterface()
 
         // read
         // gets fileName and fileExtension from input
-        if (input.substr(0, 5) == "read(" && input.size() > 8 && input.find(".") != string::npos) {
+        else if (input.substr(0, 5) == "read(" && input.size() > 8 && input.find(".") != string::npos) {
             size_t extensionIndex;
             string fileExtension;
             string fileName;
@@ -69,7 +69,7 @@ void Interface::startInterface()
         }
 
         // show tokens
-        if (input == "show(tokens)") {
+        else if (input == "show(tokens)") {
             if (programCode.size() == 0) {
                 cout << "No file in memory to read from. Use 'read(<filename>.py)' command" << endl;
             }
@@ -79,7 +79,7 @@ void Interface::startInterface()
         }
 
         // show
-        if (input == "show" || input == "show()") {
+        else if (input == "show" || input == "show()") {
             if (programCode.size() == 0) {
                 cout << "No file in memory to read from. Use 'read(<filename>.py)' command" << endl;
             }
@@ -92,31 +92,31 @@ void Interface::startInterface()
         }
 
         // clear
-        if (input == "clear" || input == "clear()") {
+        else if (input == "clear" || input == "clear()") {
             programCode.clear();
             cout << "Stored data has sucessfully been cleared" << endl;
         }
 
         // help
         // enter helpUtility
-        if (input == "help" || input == "help()") {
+        else if (input == "help" || input == "help()") {
             helpUtility();
         }
         
         // gets command if user inputted it using the help funciton
-        if (input.substr(0, 5) == "help(" && input.back() == ')') {
+        else if (input.substr(0, 5) == "help(" && input.back() == ')') {
             string cmd = input.substr(5);
             cmd.pop_back();
             commandHelpData(cmd);
         }
 
         // if user forgets to input as a function
-        if (input == "read" || input == "read()") {
+        else if (input == "read" || input == "read()") {
             commandHelpData("read");
         }
 
         // if user inputs unsupported command, direct them to helpUtility
-        if (!checkValidInput(input)) {
+        else {
             cout << "ERROR: UNSUPPORTED COMMAND" << endl << "Type 'help(commands)' for a list of supported commands" << endl;
         }
     }
