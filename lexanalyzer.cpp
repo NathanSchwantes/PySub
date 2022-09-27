@@ -47,6 +47,8 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				}
 				category = categoryType::NUMERIC_LITERAL;
 				tokenLine.push_back(make_pair(tokenText, category));
+                // corrects iterator from while loop
+                j--;
 			}
 
 			// KEYWORD, LOGICAL_OP, IDENTIFIER
@@ -56,7 +58,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				string tokenText;
 				while (isalpha(inputCode[i][j])) {
 					tokenText.push_back(inputCode[i][j]);
-					j++;
+                    j++;
 				}
 
 				// KEYWORD
@@ -88,6 +90,8 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 					category = categoryType::IDENTIFIER;
 					tokenLine.push_back(make_pair(tokenText, category));
 				}
+                // corrects iterator from while loop
+                j--;
 			}
 
 			// STRING_LITERAL
