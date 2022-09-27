@@ -26,8 +26,13 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
 			// COMMENT
 			if (inputCode[i][j] == '#') {
+
+				string tokenText;
+				for (j; j < inputCode[i].size(); j++) {
+					tokenText.push_back(inputCode[i][j]);
+				}
 				category = categoryType::COMMENT;
-				tokenLine.push_back(make_pair("#", category));
+				tokenLine.push_back(make_pair(tokenText, category));
 			}
 
 			// NUMERIC LITERAL
