@@ -194,9 +194,36 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 			}
 
 			// ARITH_OP
+			// "+"
+			if (inputCode[i][j] == '+') {
+				category = categoryType::ARITH_OP;
+				tokenLine.push_back(make_pair("+", category));
+			}
+
+			// "-"
+			if (inputCode[i][j] == '-') {
+				category = categoryType::ARITH_OP;
+				tokenLine.push_back(make_pair("-", category));
+			}
+
+			// "*"
+			if (inputCode[i][j] == '*') {
+				category = categoryType::ARITH_OP;
+				tokenLine.push_back(make_pair("*", category));
+			}
+
+			// "/"
+			if (inputCode[i][j] == '/') {
+				category = categoryType::ARITH_OP;
+				tokenLine.push_back(make_pair("/", category));
+			}
+
+			// "%"
+			if (inputCode[i][j] == '%') {
+				category = categoryType::ARITH_OP;
+				tokenLine.push_back(make_pair("%", category));
+			}
 		}
-		cout << tokenLine.size() << endl;
-		cout << tokenLine[0].first << endl;
 	}
 	return false;
 }
