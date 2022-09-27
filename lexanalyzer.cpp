@@ -125,6 +125,75 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 				category = categoryType::STRING_LITERAL;
 				tokenLine.push_back(make_pair(tokenText, category));
 			}
+
+			// LEFT_PAREN
+			if (inputCode[i][j] == '(') {
+				category = categoryType::LEFT_PAREN;
+				tokenLine.push_back(make_pair("(", category));
+			}
+
+			// RIGHT_PAREN
+			if (inputCode[i][j] == ')') {
+				category = categoryType::LEFT_PAREN;
+				tokenLine.push_back(make_pair(")", category));
+			}
+
+			// COLON
+			if (inputCode[i][j] == ':') {
+				category = categoryType::LEFT_PAREN;
+				tokenLine.push_back(make_pair(":", category));
+			}
+
+			// COMMA
+			if (inputCode[i][j] == ',') {
+				category = categoryType::LEFT_PAREN;
+				tokenLine.push_back(make_pair(",", category));
+			}
+
+			// ASSIGNMENT_OP
+			if (inputCode[i][j] == '=') {
+				category = categoryType::ASSIGNMENT_OP;
+				tokenLine.push_back(make_pair("=", category));
+			}
+
+			// RELATIONAL_OP
+			// "<"
+			if (inputCode[i][j] == '<') {
+				category = categoryType::ASSIGNMENT_OP;
+				tokenLine.push_back(make_pair("<", category));
+			}
+
+			// ">"
+			if (inputCode[i][j] == '>') {
+				category = categoryType::ASSIGNMENT_OP;
+				tokenLine.push_back(make_pair(">", category));
+			}
+
+			// "<="
+			if (inputCode[i][j] == '<' && inputCode[i][j + 1] == '=') {
+				category = categoryType::ASSIGNMENT_OP;
+				tokenLine.push_back(make_pair("<=", category));
+			}
+
+			// ">="
+			if (inputCode[i][j] == '>' && inputCode[i][j + 1] == '=') {
+				category = categoryType::ASSIGNMENT_OP;
+				tokenLine.push_back(make_pair(">=", category));
+			}
+
+			// "=="
+			if (inputCode[i][j] == '=' && inputCode[i][j + 1] == '=') {
+				category = categoryType::ASSIGNMENT_OP;
+				tokenLine.push_back(make_pair("==", category));
+			}
+
+			// "!="
+			if (inputCode[i][j] == '!' && inputCode[i][j + 1] == '=') {
+				category = categoryType::ASSIGNMENT_OP;
+				tokenLine.push_back(make_pair("!=", category));
+			}
+
+			// ARITH_OP
 		}
 		cout << tokenLine.size() << endl;
 		cout << tokenLine[0].first << endl;
