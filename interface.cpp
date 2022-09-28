@@ -169,6 +169,7 @@ void Interface::commandHelpData(string cmd) {
     }
     else if (cmd == "show") {
         cout << "Use: 'show' or 'show()' to print the data from a previously read() Python file line-by-line." << endl;
+        cout << "OR: 'show(tokens)' to run the Lexical Analyzer on a previously read() Python file." << endl;
     }
     else if (cmd == "help") {
         cout << "Use: 'help' or 'help(<command>)' to enter the help Utility which provides descriptions of every command" << endl;
