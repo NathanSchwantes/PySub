@@ -10,6 +10,7 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
 
 	for (int i = 0; i < inputCode.size(); i++) {
 
+		// clear tokenLine struct to encapusulate next line's data
 		tokenLine.clear();
 
 		// INDENT
@@ -158,98 +159,64 @@ bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
                 tokenLine.push_back(pair);
 			}
 
-			// ASSIGNMENT_OP
-			else if (inputCode[i][j] == '=') {
-                pair.first = "=";
+			// RELATIONAL_OP
+
+			// ">=", "<=", "==", "!="
+			else if (
+			(inputCode[i][j] == '>' && inputCode[i][j + 1] == '=') ||
+			(inputCode[i][j] == '<' && inputCode[i][j + 1] == '=') ||
+			(inputCode[i][j] == '=' && inputCode[i][j + 1] == '=') ||
+			(inputCode[i][j] == '!' && inputCode[i][j + 1] == '=')
+				) {
+				// local variable to encapsulate both characters
+				string tokenText;
+				tokenText = inputCode[i][j];
+				tokenText = tokenText + inputCode[i][j + 1];
+
+                pair.first = tokenText;
                 pair.second = categoryType::RELATIONAL_OP;
                 tokenLine.push_back(pair);
-			}
+				j++;
 
-			// RELATIONAL_OP
+            }
+
 			// "<"
 			else if (inputCode[i][j] == '<') {
-                pair.first = "<";
-                pair.second = categoryType::RELATIONAL_OP;
-                tokenLine.push_back(pair);
+			pair.first = "<";
+			pair.second = categoryType::RELATIONAL_OP;
+			tokenLine.push_back(pair);
 			}
 
 			// ">"
 			else if (inputCode[i][j] == '>') {
-                pair.first = ">";
-                pair.second = categoryType::RELATIONAL_OP;
-                tokenLine.push_back(pair);
+			pair.first = ">";
+			pair.second = categoryType::RELATIONAL_OP;
+			tokenLine.push_back(pair);
 
-            }
+			}
 
-			// "<="
-			else if (inputCode[i][j] == '<' && inputCode[i][j + 1] == '=') {
-                pair.first = "<=";
-                pair.second = categoryType::RELATIONAL_OP;
-                tokenLine.push_back(pair);
-
-            }
-
-			// ">="
-			else if (inputCode[i][j] == '>' && inputCode[i][j + 1] == '=') {
-                pair.first = ">=";
-                pair.second = categoryType::RELATIONAL_OP;
-                tokenLine.push_back(pair);
-
-            }
-
-			// "=="
-			else if (inputCode[i][j] == '=' && inputCode[i][j + 1] == '=') {
-                pair.first = "==";
-                pair.second = categoryType::RELATIONAL_OP;
-                tokenLine.push_back(pair);
-
-            }
-
-			// "!="
-			else if (inputCode[i][j] == '!' && inputCode[i][j + 1] == '=') {
-                pair.first = "!=";
-                pair.second = categoryType::RELATIONAL_OP;
-                tokenLine.push_back(pair);
-
-            }
+			// ASSIGNMENT_OP
+			else if (inputCode[i][j] == '=') {
+			pair.first = "=";
+			pair.second = categoryType::RELATIONAL_OP;
+			tokenLine.push_back(pair);
+			}
 
 			// ARITH_OP
-			// "+"
-			else if (inputCode[i][j] == '+') {
-                pair.first = "+";
+			else if (
+				inputCode[i][j] == '+' || 
+				inputCode[i][j] == '-' || 
+				inputCode[i][j] == '*' || 
+				inputCode[i][j] == '/' ||
+				inputCode[i][j] == '%'
+				) {
+                pair.first = inputCode[i][j];
                 pair.second = categoryType::ARITH_OP;
                 tokenLine.push_back(pair);
 
             }
 
-			// "-"
-			else if (inputCode[i][j] == '-') {
-                pair.first = "-";
-                pair.second = categoryType::ARITH_OP;
-                tokenLine.push_back(pair);
-			}
-
-			// "*"
-			else if (inputCode[i][j] == '*') {
-                pair.first = "*";
-                pair.second = categoryType::ARITH_OP;
-                tokenLine.push_back(pair);
-			}
-
-			// "/"
-			else if (inputCode[i][j] == '/') {
-                pair.first = "/";
-                pair.second = categoryType::ARITH_OP;
-                tokenLine.push_back(pair);
-			}
-
-			// "%"
-			else if (inputCode[i][j] == '%') {
-                pair.first = "%";
-                pair.second = categoryType::ARITH_OP;
-                tokenLine.push_back(pair);
-			}
-
+			// WHITESPACE
             else if (inputCode[i][j] == ' ') {
                 // do nothing
             }
