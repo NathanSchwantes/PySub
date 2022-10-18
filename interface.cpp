@@ -122,6 +122,11 @@ void Interface::startInterface()
             commandHelpData("read");
         }
 
+        else if (input == "1+2"){
+            cout << "POOPY FART" << endl;
+            expEvaluation.inToPost(input);
+        }
+
         // if user inputs unsupported command, direct them to helpUtility
         else {
             cout << "ERROR: UNSUPPORTED COMMAND" << endl << "Type 'help(commands)' for a list of supported commands" << endl;

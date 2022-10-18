@@ -6,16 +6,16 @@
 #include <vector>
 
 std::string expEvaluator::inToPost(std::string codeInput) {
+    // turn codeInput to vector so we can send it through createTokens()
+    inputVector inputVect{codeInput};
 
     // add LexicalAnalyzer class to evaluate expression
-    LexicalAnalyzer lexAnalysis;
+    LexicalAnalyzer lex;
 
-    // turn codeInput to vector so we can send it through createTokens()
-    inputVect[0] = codeInput;
+    // createTokens to get tokenInfo data
+    lex.createTokens(inputVect);
 
-    if(!lexAnalysis.createTokens(inputVect)) {
-        std::cout << "ERROR" << std::endl;
-    }
+    return codeInput;
 }
 
 int expEvaluator::getPrecedence(std::string inputChar) {
@@ -62,4 +62,5 @@ int expEvaluator::getPrecedence(std::string inputChar) {
             ) {
         return 0;
     }
+    return -1;
 }

@@ -13,7 +13,6 @@ private:
     symbolTableType symbolTable;
 
     typedef std::vector<std::string> inputVector;
-    inputVector inputVect;
 public:
     std::string inToPost(std::string);
     int getPrecedence(std::string);
