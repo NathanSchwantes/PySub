@@ -6,7 +6,7 @@
 
 using namespace std;
 
-bool LexicalAnalyzer::createTokens(vector<string> inputCode) {
+bool LexicalAnalyzer::createTokens(vector<string>& inputCode) {
 
 	for (int i = 0; i < inputCode.size(); i++) {
 

@@ -35,7 +35,7 @@ private:
     pairType pair;
 public:
     tokenType tokenInfo;
-	bool createTokens(vector<string>);
+	bool createTokens(vector<string>&);
 	void printTokens(vector<vector<std::pair<string, categoryType>>>);
 };
 
