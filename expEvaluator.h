@@ -11,5 +11,5 @@ private:
     typedef std::map<std::string, std::string> symbolTableType;
     symbolTableType symbolTable;
 public:
-    std::string inToPost(LexicalAnalyzer::tokenLineType& tokenLine);
+    std::string inToPost(LexicalAnalyzer::tokenType&);
 };
