@@ -4,8 +4,13 @@
 
 #include <string>
 #include <vector>
+#include <stack>
 
 std::string expEvaluator::inToPost(std::string codeInput) {
+    // temporary stack and output string
+    std::string postfixVect;
+    std::stack<std::string> stackVect;
+
     // turn codeInput to vector so we can send it through createTokens()
     inputVector inputVect{codeInput};
 
@@ -14,6 +19,14 @@ std::string expEvaluator::inToPost(std::string codeInput) {
 
     // createTokens to get tokenInfo data
     lex.createTokens(inputVect);
+
+    for (int i = 0; i < lex.tokenInfo[0].size(); i++) {
+
+        // if NUMERIC_LITERAL just add to postfixVect
+        if (lex.tokenInfo[0][i].second == categoryType::NUMERIC_LITERAL) {
+            postfixVect.append(lex.tokenInfo[0][i].first);
+        }
+    }
 
     return codeInput;
 }
