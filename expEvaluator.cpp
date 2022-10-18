@@ -3,9 +3,19 @@
 #include "lexanalyzer.h"
 
 #include <string>
+#include <vector>
 
-std::string expEvaluator::inToPost(std::string& codeInput) {
+std::string expEvaluator::inToPost(std::string codeInput) {
 
+    // add LexicalAnalyzer class to evaluate expression
+    LexicalAnalyzer lexAnalysis;
+
+    // turn codeInput to vector so we can send it through createTokens()
+    inputVect[0] = codeInput;
+
+    if(!lexAnalysis.createTokens(inputVect)) {
+        std::cout << "ERROR" << std::endl;
+    }
 }
 
 int expEvaluator::getPrecedence(std::string inputChar) {
