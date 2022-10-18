@@ -10,7 +10,7 @@ void Interface::startInterface()
 {
     // lexicalAnalyzer class declaration
     LexicalAnalyzer lexAnalysis;
-    expEvaluator expressionEval;
+    expEvaluator expEvaluation;
 
     cout << "PySUB Interpreter 1.0 on Windows (September 2022)" << endl;
     cout << "By: Nathan Schwantes - CSCI 230 - Fall 2022" << endl;
@@ -64,7 +64,6 @@ void Interface::startInterface()
 
                 // create tokens and add to tokenInfo struct
                 lexAnalysis.createTokens(programCode);
-                expressionEval.inToPost(input);
 
                 cout << "File sucessfully read. Use 'show' to view file content" << endl;
                 fileRead.close();
