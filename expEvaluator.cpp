@@ -32,6 +32,20 @@ std::string expEvaluator::inToPost(std::string codeInput) {
             stackVect.push(lex.tokenInfo[0][i].first);
         }
 
+        // if RIGHT_PAREN pop until LEFT_PAREN is detected
+        else if (lex.tokenInfo[0][i].second == categoryType::RIGHT_PAREN) {
+            while (stackVect.top() != "(") {
+                postfixVect.append(stackVect.top());
+                stackVect.pop();
+                if (stackVect.empty()) {
+                    cout << "ERROR: Imbalanced parenthesis detected" << endl;
+                    exit;
+                }
+            }
+            // pops the "("
+            stackVect.pop();
+        }
+
         // if XXXX_OP
         else if (
             lex.tokenInfo[0][i].second == categoryType::ARITH_OP ||
@@ -47,17 +61,16 @@ std::string expEvaluator::inToPost(std::string codeInput) {
                 stackVect.pop();
             }
             stackVect.push(lex.tokenInfo[0][i].first);
-            
-            while (!stackVect.empty()) {
-                postfixVect.append(stackVect.top());
-                stackVect.pop();
-            }
         }
-        std::cout << postfixVect << std::endl;
-        return postfixVect;
     }
+    while (!stackVect.empty()) {
+        postfixVect.append(stackVect.top());
+        stackVect.pop();
+    }
+ 
+    cout << postfixVect << endl;
 
-    return codeInput;
+    return postfixVect;
 }
 
 int expEvaluator::getPrecedence(std::string inputChar) {
