@@ -74,7 +74,29 @@ std::string expEvaluator::inToPost(std::string codeInput) {
 }
 
 std::string expEvaluator::postEval(std::string postfixVect) {
+    std::stack<std::string> infixStack;
+    double operand1;
+    double operand2;
+    double result;
+    LexicalAnalyzer lex;
 
+    for (int i = 0; i < infixStack.size(); i++) {
+        if (lex.tokenInfo[0][i].second == categoryType::NUMERIC_LITERAL) {
+            infixStack.push(lex.tokenInfo[0][i].first);
+        }
+        else if ((
+            lex.tokenInfo[0][i].second == categoryType::ARITH_OP ||
+            lex.tokenInfo[0][i].second == categoryType::RELATIONAL_OP ||
+            lex.tokenInfo[0][i].second == categoryType::LOGICAL_OP ) &&
+            lex.tokenInfo[0][i].first != "not" &&
+            infixStack.size() >= 2
+            ) {
+            operand2 = stod(infixStack.top());
+            infixStack.pop();
+            operand1 = stod(infixStack.top());
+            infixStack.pop();
+        }
+    }
 }
 
 int expEvaluator::getPrecedence(std::string inputChar) {
@@ -121,5 +143,8 @@ int expEvaluator::getPrecedence(std::string inputChar) {
             ) {
         return 0;
     }
-    return -1;
+
+    else {
+        return -1;
+    }
 }
