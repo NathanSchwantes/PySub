@@ -73,6 +73,10 @@ std::string expEvaluator::inToPost(std::string codeInput) {
     return postfixVect;
 }
 
+std::string expEvaluator::postEval(std::string postfixVect) {
+
+}
+
 int expEvaluator::getPrecedence(std::string inputChar) {
     if (
         inputChar == "*" ||
