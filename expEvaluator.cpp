@@ -28,22 +28,25 @@ std::string expEvaluator::inToPost(std::string codeInput) {
         }
 
         // if LEFT_PAREN add to stackVect
-        if (lex.tokenInfo[0][i].second == categoryType::LEFT_PAREN) {
+        else if (lex.tokenInfo[0][i].second == categoryType::LEFT_PAREN) {
             stackVect.push(lex.tokenInfo[0][i].first);
         }
 
-        //
-        if (
-        (
-        lex.tokenInfo[0][i].second == categoryType::ARITH_OP ||
-        lex.tokenInfo[0][i].second == categoryType::RELATIONAL_OP ||
-        lex.tokenInfo[0][i].second == categoryType::LOGICAL_OP
-        ) &&
-        stackVect.empty() &&
-        stackVect.top() != "(" &&
-        getPrecedence(stackVect.top()) >= getPrecedence(lex.tokenInfo[0][i].first)
+        // if XXXX_OP
+        else if (
+            lex.tokenInfo[0][i].second == categoryType::ARITH_OP ||
+            lex.tokenInfo[0][i].second == categoryType::RELATIONAL_OP ||
+            lex.tokenInfo[0][i].second == categoryType::LOGICAL_OP
             ) {
-
+            while (
+                !stackVect.empty() &&
+                stackVect.top() != "(" &&
+                getPrecedence(stackVect.top()) >= getPrecedence(lex.tokenInfo[0][i])
+                ) {
+                postfixVect.append(stackVect.top());
+                stackVect.pop();
+            }
+            stackVect.push(lex.tokenInfo[0][i].first);
         }
     }
 
