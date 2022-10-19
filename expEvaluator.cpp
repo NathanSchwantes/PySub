@@ -1,10 +1,13 @@
 #include <iostream>
+#include <cmath>
 #include "expEvaluator.h"
 #include "lexanalyzer.h"
 
 #include <string>
 #include <vector>
 #include <stack>
+
+using namespace std;
 
 std::string expEvaluator::inToPost(std::string codeInput) {
     // temporary stack and output string
@@ -67,22 +70,26 @@ std::string expEvaluator::inToPost(std::string codeInput) {
         postfixVect.append(stackVect.top());
         stackVect.pop();
     }
- 
-    cout << postfixVect << endl;
-
     return postfixVect;
 }
 
-std::string expEvaluator::postEval(std::string postfixVect) {
+double expEvaluator::postEval(std::string postExpr, std::string input) {
+    LexicalAnalyzer lex;
+    inputVector inputVect{ input };
+    lex.createTokens(inputVect);
     std::stack<std::string> infixStack;
     double operand1;
     double operand2;
     double result;
-    LexicalAnalyzer lex;
+    
 
-    for (int i = 0; i < infixStack.size(); i++) {
-        if (lex.tokenInfo[0][i].second == categoryType::NUMERIC_LITERAL) {
-            infixStack.push(lex.tokenInfo[0][i].first);
+    for (int i = 0; i < postExpr.size(); i++) {
+        std::cout << lex.tokenInfo[0][i].first << endl;
+        if (isdigit(postExpr[i])) {
+            string temp;
+            temp.push_back(postExpr[i]);
+            infixStack.push(temp);
+            std::cout << infixStack.size() << "INFIX SIZE" << endl;
         }
         else if ((
             lex.tokenInfo[0][i].second == categoryType::ARITH_OP ||
@@ -95,8 +102,38 @@ std::string expEvaluator::postEval(std::string postfixVect) {
             infixStack.pop();
             operand1 = stod(infixStack.top());
             infixStack.pop();
+
+            if (lex.tokenInfo[0][i].first == "+") {
+                result = operand1 + operand2;
+                cout << "EPIC MOD" << endl;
+            }
+            else if (lex.tokenInfo[0][i].first == "-") { result = operand1 - operand2; }
+            else if (lex.tokenInfo[0][i].first == "*") { result = operand1 * operand2; }
+            else if (lex.tokenInfo[0][i].first == "/") { result = operand1 / operand2; }
+            else if (lex.tokenInfo[0][i].first == "%") { result = fmod(operand1, operand2); }
+            else if (lex.tokenInfo[0][i].first == "<") { result = operand1 < operand2; }
+            else if (lex.tokenInfo[0][i].first == ">") { result = operand1 > operand2; }
+            else if (lex.tokenInfo[0][i].first == "<=") { result = operand1 <= operand2; }
+            else if (lex.tokenInfo[0][i].first == ">=") { result = operand1 >= operand2; }
+            else if (lex.tokenInfo[0][i].first == "!=") { result = operand1 != operand2; }
+            else if (lex.tokenInfo[0][i].first == "and") { result = operand1 && operand2; }
+            else if (lex.tokenInfo[0][i].first == "or") { result = operand1 || operand2; }
+            else { result = -1; }
+
+            infixStack.push(to_string(result));
+        }
+        else if (lex.tokenInfo[0][i].first == "not" && !infixStack.empty()) {
+            operand1 = stod(infixStack.top());
+            result = !operand1;
+            infixStack.push(to_string(result));
+        }
+        else {
+            cout << "ERROR" << endl;
+            return -1;
         }
     }
+    cout << infixStack.top() << "TOOT" << endl;
+    return stod(infixStack.top());
 }
 
 int expEvaluator::getPrecedence(std::string inputChar) {

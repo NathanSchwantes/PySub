@@ -8,6 +8,7 @@ using namespace std;
 
 void Interface::startInterface()
 {
+    vector<string> expressionEval;
     // lexicalAnalyzer class declaration
     LexicalAnalyzer lexAnalysis;
     expEvaluator expEvaluation;
@@ -25,6 +26,7 @@ void Interface::startInterface()
         string input;
         cout << ">>> ";
         getline(cin, input);
+        expressionEval.push_back(input);
 
         // quit
         if (input == "quit()" || input == "quit") {
@@ -121,10 +123,10 @@ void Interface::startInterface()
         else if (input == "read" || input == "read()") {
             commandHelpData("read");
         }
-
-        else if (input == "1+2"){
-            cout << "POOPY FART" << endl;
-            expEvaluation.inToPost(input);
+        
+        else if (lexAnalysis.createTokens(expressionEval)) {
+            string temp = expEvaluation.inToPost(input);
+            cout << expEvaluation.postEval(temp, input) << "fart face" << endl;
         }
 
         // if user inputs unsupported command, direct them to helpUtility

@@ -15,6 +15,7 @@ private:
     typedef std::vector<std::string> inputVector;
 public:
     std::string inToPost(std::string);
+    double postEval(std::string, std::string);
     int getPrecedence(std::string);
 };
 
