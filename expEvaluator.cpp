@@ -41,13 +41,20 @@ std::string expEvaluator::inToPost(std::string codeInput) {
             while (
                 !stackVect.empty() &&
                 stackVect.top() != "(" &&
-                getPrecedence(stackVect.top()) >= getPrecedence(lex.tokenInfo[0][i])
+                getPrecedence(stackVect.top()) >= getPrecedence(lex.tokenInfo[0][i].first)
                 ) {
                 postfixVect.append(stackVect.top());
                 stackVect.pop();
             }
             stackVect.push(lex.tokenInfo[0][i].first);
+            
+            while (!stackVect.empty()) {
+                postfixVect.append(stackVect.top());
+                stackVect.pop();
+            }
         }
+        std::cout << postfixVect << std::endl;
+        return postfixVect;
     }
 
     return codeInput;
