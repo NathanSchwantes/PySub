@@ -1,0 +1,8 @@
+*.idea/
+cmake-build-debug/
+x64/Debug/
+*.txt
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
