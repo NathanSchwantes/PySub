@@ -42,7 +42,7 @@ std::string expEvaluator::inToPost(std::string codeInput) {
                 stackVect.pop();
                 if (stackVect.empty()) {
                     cout << "ERROR: Imbalanced parenthesis detected" << endl;
-                    exit;
+                    return "false";
                 }
             }
             // pops the "("

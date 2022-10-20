@@ -240,4 +240,5 @@ bool Interface::checkValidInput(string input) {
     else {
         return false;
     }
+    return false;
 }
