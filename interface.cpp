@@ -8,9 +8,11 @@ using namespace std;
 
 void Interface::startInterface()
 {
+    // allows for conversion to string for createTokens() interpretation
     vector<string> expressionEval;
     // lexicalAnalyzer class declaration
     LexicalAnalyzer lexAnalysis;
+    // expEvaluator class declaration
     expEvaluator expEvaluation;
 
     cout << "PySUB Interpreter 1.0 on Windows (September 2022)" << endl;
@@ -103,6 +105,8 @@ void Interface::startInterface()
             programCode.clear();
             // clear tokenInfo strcuture
             lexAnalysis.tokenInfo.clear();
+            // clear symbolTable structure
+            expEvaluation.symbolTable.clear();
             cout << "Stored data has sucessfully been cleared" << endl;
         }
 

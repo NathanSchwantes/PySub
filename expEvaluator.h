@@ -9,6 +9,8 @@
 
 class expEvaluator {
 private:
+    friend class Interface;
+
     typedef std::map<std::string, std::string> symbolTableType;
     symbolTableType symbolTable;
 
