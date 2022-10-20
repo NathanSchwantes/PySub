@@ -49,7 +49,13 @@ std::string expEvaluator::inToPost(std::string codeInput) {
             stackVect.pop();
         }
 
-        // if XXXX_OP
+        // if IDENTIFIER
+        else if (lex.tokenInfo[0][i].second == categoryType::IDENTIFIER) {
+            postfixVect.append(lex.tokenInfo[0][i].first + " ");
+            // find IDENTIFIER in symbolTable structure
+            symbolTable.find({lex.tokenInfo[0][i].first});
+        }
+        // if OPERATOR
         else if (
             lex.tokenInfo[0][i].second == categoryType::ARITH_OP ||
             lex.tokenInfo[0][i].second == categoryType::RELATIONAL_OP ||
@@ -76,18 +82,21 @@ std::string expEvaluator::inToPost(std::string codeInput) {
 double expEvaluator::postEval(std::string postExpr) {
     LexicalAnalyzer lex;
     inputVector postExprVect{ postExpr };
+    // evaluate tokens with postfixExpr for interpretation of tokenInfo
     lex.createTokens(postExprVect);
     std::stack<std::string> infixStack;
+    // double used in case of decimal inputs
     double operand1;
     double operand2;
     double result;
-    
 
     for (int i = 0; i < lex.tokenInfo[0].size(); i++) {
 
+        // if NUMERIC_LITERAL
         if (lex.tokenInfo[0][i].second == categoryType::NUMERIC_LITERAL) {
             infixStack.push(lex.tokenInfo[0][i].first);
         }
+        // if OPERATOR
         else if ((
             lex.tokenInfo[0][i].second == categoryType::ARITH_OP ||
             lex.tokenInfo[0][i].second == categoryType::RELATIONAL_OP ||
@@ -95,11 +104,13 @@ double expEvaluator::postEval(std::string postExpr) {
             lex.tokenInfo[0][i].first != "not" &&
             infixStack.size() >= 2
             ) {
+            // convert to double for calculation
             operand2 = stod(infixStack.top());
             infixStack.pop();
             operand1 = stod(infixStack.top());
             infixStack.pop();
 
+            // calculation logic
             if (lex.tokenInfo[0][i].first == "+") { result = operand1 + operand2; }
             else if (lex.tokenInfo[0][i].first == "-") { result = operand1 - operand2; }
             else if (lex.tokenInfo[0][i].first == "*") { result = operand1 * operand2; }
@@ -116,14 +127,15 @@ double expEvaluator::postEval(std::string postExpr) {
 
             infixStack.push(to_string(result));
         }
+        // NOT logic because it is unary
         else if (lex.tokenInfo[0][i].first == "not" && !infixStack.empty()) {
             operand1 = stod(infixStack.top());
             result = !operand1;
             infixStack.push(to_string(result));
         }
         else {
-            cout << "ERROR" << endl;
-            return -1;
+            cout << "ERROR: Syntax could not be evaluated." << endl;
+            return -10000000;
         }
     }
     return stod(infixStack.top());
