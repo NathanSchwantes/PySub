@@ -27,7 +27,7 @@ std::string expEvaluator::inToPost(std::string codeInput) {
 
         // if NUMERIC_LITERAL just add to postfixVect
         if (lex.tokenInfo[0][i].second == categoryType::NUMERIC_LITERAL) {
-            postfixVect.append(lex.tokenInfo[0][i].first);
+            postfixVect.append(lex.tokenInfo[0][i].first + " ");
         }
 
         // if LEFT_PAREN add to stackVect
@@ -63,7 +63,7 @@ std::string expEvaluator::inToPost(std::string codeInput) {
                 postfixVect.append(stackVect.top());
                 stackVect.pop();
             }
-            stackVect.push(lex.tokenInfo[0][i].first);
+            stackVect.push(lex.tokenInfo[0][i].first + " ");
         }
     }
     while (!stackVect.empty()) {
@@ -73,23 +73,20 @@ std::string expEvaluator::inToPost(std::string codeInput) {
     return postfixVect;
 }
 
-double expEvaluator::postEval(std::string postExpr, std::string input) {
+double expEvaluator::postEval(std::string postExpr) {
     LexicalAnalyzer lex;
-    inputVector inputVect{ input };
-    lex.createTokens(inputVect);
+    inputVector postExprVect{ postExpr };
+    lex.createTokens(postExprVect);
     std::stack<std::string> infixStack;
     double operand1;
     double operand2;
     double result;
     
 
-    for (int i = 0; i < postExpr.size(); i++) {
+    for (int i = 0; i < lex.tokenInfo[0].size(); i++) {
         std::cout << lex.tokenInfo[0][i].first << endl;
-        if (isdigit(postExpr[i])) {
-            string temp;
-            temp.push_back(postExpr[i]);
-            infixStack.push(temp);
-            std::cout << infixStack.size() << "INFIX SIZE" << endl;
+        if (lex.tokenInfo[0][i].second == categoryType::NUMERIC_LITERAL) {
+            infixStack.push(lex.tokenInfo[0][i].first);
         }
         else if ((
             lex.tokenInfo[0][i].second == categoryType::ARITH_OP ||
@@ -103,10 +100,7 @@ double expEvaluator::postEval(std::string postExpr, std::string input) {
             operand1 = stod(infixStack.top());
             infixStack.pop();
 
-            if (lex.tokenInfo[0][i].first == "+") {
-                result = operand1 + operand2;
-                cout << "EPIC MOD" << endl;
-            }
+            if (lex.tokenInfo[0][i].first == "+") { result = operand1 + operand2; }
             else if (lex.tokenInfo[0][i].first == "-") { result = operand1 - operand2; }
             else if (lex.tokenInfo[0][i].first == "*") { result = operand1 * operand2; }
             else if (lex.tokenInfo[0][i].first == "/") { result = operand1 / operand2; }
