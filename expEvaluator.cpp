@@ -22,7 +22,7 @@ std::string expEvaluator::inToPost(std::string codeInput) {
 
     // createTokens to get tokenInfo data
     lex.createTokens(inputVect);
-
+    
     for (int i = 0; i < lex.tokenInfo[0].size(); i++) {
 
         // if NUMERIC_LITERAL just add to postfixVect
@@ -84,7 +84,7 @@ double expEvaluator::postEval(std::string postExpr) {
     
 
     for (int i = 0; i < lex.tokenInfo[0].size(); i++) {
-        std::cout << lex.tokenInfo[0][i].first << endl;
+
         if (lex.tokenInfo[0][i].second == categoryType::NUMERIC_LITERAL) {
             infixStack.push(lex.tokenInfo[0][i].first);
         }
@@ -126,7 +126,6 @@ double expEvaluator::postEval(std::string postExpr) {
             return -1;
         }
     }
-    cout << infixStack.top() << "TOOT" << endl;
     return stod(infixStack.top());
 }
 

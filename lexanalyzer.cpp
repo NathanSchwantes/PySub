@@ -222,11 +222,7 @@ bool LexicalAnalyzer::createTokens(vector<string>& inputCode) {
             }
 
 			else {
-                string tokenText;
-                tokenText = inputCode[i][j];
-                pair.first = tokenText;
-                pair.second = categoryType::ARITH_OP;
-                tokenLine.push_back(pair);
+				return false;
 			}
 		}
 		// add tokenLine to the overall allToken structure

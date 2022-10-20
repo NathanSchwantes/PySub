@@ -125,8 +125,9 @@ void Interface::startInterface()
         }
         
         else if (lexAnalysis.createTokens(expressionEval)) {
+            lexAnalysis.tokenInfo.clear();
             string temp = expEvaluation.inToPost(input);
-            cout << "EXP EVAL:" << expEvaluation.postEval(temp) << endl;
+            cout << expEvaluation.postEval(temp) << endl;
         }
 
         // if user inputs unsupported command, direct them to helpUtility
