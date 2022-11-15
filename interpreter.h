@@ -1,7 +1,7 @@
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
-#include "interface.h"
+#include <string>
 
 class Interpreter {
 private:
@@ -9,7 +9,7 @@ private:
 	void interpretPrint();
 	void interpretAssignment();
 public:
-	void interpretLine(programType& programCode);
+	void interpretLine(std::string);
 };
 
 #endif
