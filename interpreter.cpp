@@ -17,9 +17,9 @@ void Interpreter::interpretCode(std::vector<std::string>& programCode) {
         if (lex.tokenInfo[i][0].second == categoryType::COMMENT) {
             Interpreter::interpretComment();
         }
-
+        // if PRINT statement then run print function
         else if (lex.tokenInfo[i][0].second == categoryType::KEYWORD && lex.tokenInfo[i][0].first == "print") {
-            Interpreter::interpretPrint(lex.tokenLine)
+            Interpreter::interpretPrint(lex.tokenLine);
         }
     }
 }
@@ -29,5 +29,9 @@ void Interpreter::interpretComment(void) {
 }
 
 void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
+    // get
+    int end = programLine.size();
+    if ((programLine[1].second == categoryType::LEFT_PAREN) && (programLine[end].second == categoryType::RIGHT_PAREN)) {
 
+    }
 }
