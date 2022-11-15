@@ -6,6 +6,8 @@
 class Interpreter {
 private:
 	void interpretComment();
+	void interpretPrint();
+	void interpretAssignment();
 public:
 	void interpretLine(programType& programCode);
 };
