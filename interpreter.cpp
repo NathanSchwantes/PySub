@@ -6,7 +6,7 @@
 
 LexicalAnalyzer lex; // bring class to this file
 
-void Interface::interpretCode(std::vector<std::string>& programCode) {
+void Interpreter::interpretCode(std::vector<std::string>& programCode) {
     // run lexicalAnalysis on code for easier interpretation
     lex.createTokens(programCode);
 
@@ -14,16 +14,20 @@ void Interface::interpretCode(std::vector<std::string>& programCode) {
         for (int j = 0; j < lex.tokenInfo[i].size(); j++) {
             // if COMMENT do nothing
             if (lex.tokenInfo[i][j].second == categoryType::COMMENT) {
-                Interface::interpretComment();
+                Interpreter::interpretComment();
             }
 
             else if (lex.tokenInfo[i][j].second == categoryType::KEYWORD && lex.tokenInfo[i][j].first == "print") {
-                Interface::interpretPrint(lex.tokenInfo[i].first)
+                Interpreter::interpretPrint(lex.tokenInfo[i].first)
             }
         }
     }
 }
 
-void Interface::interpretComment(void) {
+void Interpreter::interpretComment(void) {
     // do nothing
+}
+
+void Interpreter::interpretPrint(LexicalAnalyzer::tokenType programLine) {
+
 }
