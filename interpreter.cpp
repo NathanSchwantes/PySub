@@ -2,7 +2,7 @@
 
 #include <string>
 
-void interpretLine(std::string programLine)
+void interpretLine(tokenLineType)
 {
-
+	
 }

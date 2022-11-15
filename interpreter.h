@@ -1,7 +1,7 @@
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
-#include <string>
+#include "lexanalyzer.h"
 
 class Interpreter {
 private:
@@ -9,7 +9,7 @@ private:
 	void interpretPrint();
 	void interpretAssignment();
 public:
-	void interpretLine(std::string);
+	void interpretLine(LexicalAnalyzer::tokenLineType);
 };
 
 #endif
