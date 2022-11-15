@@ -1,4 +1,16 @@
-#ifndef PYSUB_INTERPRETER_H
-#define PYSUB_INTERPRETER_H
+#ifndef INTERPRETER_H
+#define NTERPRETER_H
 
-#endif //PYSUB_INTERPRETER_H
+#include <vector>
+#include <string>
+
+class Interface {
+private:
+    void interpretComment();
+    void interpretPrint();
+    void interpretAssignment();
+public:
+    void interpretCode(std::vector<std::string>& );
+};
+
+#endif
