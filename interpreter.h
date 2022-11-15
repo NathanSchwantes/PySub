@@ -6,7 +6,7 @@
 
 class Interface {
 private:
-    void interpretComment();
+    void interpretComment(void);
     void interpretPrint();
     void interpretAssignment();
 public:

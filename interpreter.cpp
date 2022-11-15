@@ -12,7 +12,18 @@ void Interface::interpretCode(std::vector<std::string>& programCode) {
 
     for (int i = 0; i < lex.tokenInfo.size(); i++) {
         for (int j = 0; j < lex.tokenInfo[i].size(); j++) {
+            // if COMMENT do nothing
+            if (lex.tokenInfo[i][j].second == categoryType::COMMENT) {
+                Interface::interpretComment();
+            }
 
+            else if (lex.tokenInfo[i][j].second == categoryType::KEYWORD && lex.tokenInfo[i][j].first == "print") {
+                Interface::interpretPrint(lex.tokenInfo[i].first)
+            }
         }
     }
+}
+
+void Interface::interpretComment(void) {
+    // do nothing
 }
