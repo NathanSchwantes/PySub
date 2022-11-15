@@ -8,7 +8,7 @@
 class Interpreter {
 private:
     void interpretComment(void);
-    void interpretPrint(LexicalAnalyzer::tokenType);
+    void interpretPrint(LexicalAnalyzer::tokenLineType& );
     void interpretAssignment();
 public:
     void interpretCode(std::vector<std::string>& );

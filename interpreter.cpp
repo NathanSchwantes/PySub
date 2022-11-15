@@ -11,15 +11,15 @@ void Interpreter::interpretCode(std::vector<std::string>& programCode) {
     lex.createTokens(programCode);
 
     for (int i = 0; i < lex.tokenInfo.size(); i++) {
-        for (int j = 0; j < lex.tokenInfo[i].size(); j++) {
-            // if COMMENT do nothing
-            if (lex.tokenInfo[i][j].second == categoryType::COMMENT) {
-                Interpreter::interpretComment();
-            }
+        // add current line to tokenLines struct
+        lex.tokenInfo[i] = lex.tokenLine;
+        // if COMMENT do nothing
+        if (lex.tokenInfo[i][0].second == categoryType::COMMENT) {
+            Interpreter::interpretComment();
+        }
 
-            else if (lex.tokenInfo[i][j].second == categoryType::KEYWORD && lex.tokenInfo[i][j].first == "print") {
-                Interpreter::interpretPrint(lex.tokenInfo[i].first)
-            }
+        else if (lex.tokenInfo[i][0].second == categoryType::KEYWORD && lex.tokenInfo[i][0].first == "print") {
+            Interpreter::interpretPrint(lex.tokenLine)
         }
     }
 }
@@ -28,6 +28,6 @@ void Interpreter::interpretComment(void) {
     // do nothing
 }
 
-void Interpreter::interpretPrint(LexicalAnalyzer::tokenType programLine) {
+void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
 
 }
