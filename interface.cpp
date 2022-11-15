@@ -2,6 +2,7 @@
 #include "interface.h"
 #include "lexanalyzer.h"
 #include "expEvaluator.h"
+#include "interpreter.h"
 #include <fstream>
 
 using namespace std;
@@ -14,6 +15,8 @@ void Interface::startInterface()
     LexicalAnalyzer lexAnalysis;
     // expEvaluator class declaration
     expEvaluator expEvaluation;
+    // Interpreter class declaration
+    Interpreter pysubi;
 
     cout << "PySUB Interpreter 1.0 on Windows (September 2022)" << endl;
     cout << "By: Nathan Schwantes - CSCI 230 - Fall 2022" << endl;
@@ -75,6 +78,10 @@ void Interface::startInterface()
             else {
                 cout << "Please enter filename with .py extension" << endl;
             }
+        }
+
+        else if (input == "run") {
+            pysubi.interpretCode(programCode);
         }
 
         // show tokens
