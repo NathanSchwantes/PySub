@@ -1,15 +1,17 @@
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
+#include <vector>
+#include <string>
 #include "lexanalyzer.h"
 
 class Interpreter {
 private:
-	void interpretComment();
-	void interpretPrint();
-	void interpretAssignment();
+    void interpretComment(void);
+    void interpretPrint(LexicalAnalyzer::tokenLineType& );
+    void interpretAssignment();
 public:
-	void interpretLine(LexicalAnalyzer::tokenLineType);
+    void interpretCode(std::vector<std::string>& );
 };
 
 #endif

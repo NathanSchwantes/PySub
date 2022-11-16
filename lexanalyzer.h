@@ -27,6 +27,7 @@ enum class categoryType {
 class LexicalAnalyzer {
 private:
     friend class expEvaluator;
+    friend class Interpreter;
 
     typedef vector<vector<pair<string, categoryType>>> tokenType;
     typedef vector<pair<string, categoryType>> tokenLineType;
