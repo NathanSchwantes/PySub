@@ -34,11 +34,17 @@ void Interpreter::interpretComment(void) {
 
 void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
     // get iterator for end of programLine
-    int end = programLine.size() - 1;
+    int endIter = programLine.size() - 1;
     // checks for balanced parenthesis
-    if ((programLine[1].second == categoryType::LEFT_PAREN) && (programLine[end].second == categoryType::RIGHT_PAREN)) {
-        if (programLine[2].second == categoryType::STRING_LITERAL) {
-            cout << programLine[2].first << endl;
+    if ((programLine[1].second == categoryType::LEFT_PAREN) && (programLine[endIter].second == categoryType::RIGHT_PAREN)) {
+        for (int i = 2; i < endIter - 1; i++) {
+            if (programLine[i].second == categoryType::STRING_LITERAL) {
+
+            }
         }
     }
+}
+
+string Interpreter::removeQuotation(string& stringLiteral) {
+
 }
