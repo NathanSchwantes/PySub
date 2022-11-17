@@ -36,18 +36,17 @@ void Interpreter::interpretComment(void) {
 
 void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLine) {
     string programLineTemp;
+    string identifierTemp = programLine[0].first;
+    string expressionEvalTemp;
     if (programLine[1].second == categoryType::ASSIGNMENT_OP) {
-        // if IDENTIFIER and NUMERIC_LITERAL only, add to symbolTable
-        if (programLine[2].second == categoryType::NUMERIC_LITERAL && programLine.size() < 4) {
-            exp.symbolTable.insert({programLine[0].first, programLine[2].first});
-        }
-        // erase first 2 items from vector
+        // erase first 2 items ex:"X=" from vector
+        // leaves us with everything after "="
         programLine.erase(programLine.begin(), programLine.begin() + 2);
         for (int i = 0; i < programLine.size(); i++) {
             programLineTemp.append(programLine[i].first);
-            cout << "TEMP PROG LINE:" << programLineTemp << endl;
         }
-        //exp.postEval(programLine);
+        expressionEvalTemp = to_string(exp.postEval((exp.inToPost(programLineTemp))));
+        exp.symbolTable.insert({identifierTemp, expressionEvalTemp});
     }
 }
 
@@ -57,9 +56,20 @@ void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
     // checks for balanced parenthesis
     if ((programLine[1].second == categoryType::LEFT_PAREN) && (programLine[endIter].second == categoryType::RIGHT_PAREN)) {
         for (int i = 2; i < endIter; i++) {
-            if (programLine[i].second == categoryType::STRING_LITERAL) {
+            // checks for correct syntax within print() statement
+            if (
+                    programLine[i].second == categoryType::STRING_LITERAL &&
+                    (programLine[i+1].second == categoryType::COMMA || programLine[i+1].second == categoryType::RIGHT_PAREN)
+                    ) {
                 programLine[i].first = Interpreter::removeQuotation(programLine[i].first);
                 cout << programLine[i].first;
+            }
+            // checks for correct syntax within print() statement
+            else if(
+                    programLine[i].second == categoryType::IDENTIFIER &&
+                    (programLine[i+1].second == categoryType::COMMA || programLine[i+1].second == categoryType::RIGHT_PAREN)
+                    ) {
+                cout << exp.symbolTable[programLine[i].first];
             }
         }
         cout << endl;
