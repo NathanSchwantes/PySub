@@ -65,11 +65,13 @@ void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
                 cout << programLine[i].first;
             }
             // checks for correct syntax within print() statement
-            else if (
-                    programLine[i].second == categoryType::IDENTIFIER &&
-                    (programLine[i+1].second == categoryType::COMMA || programLine[i+1].second == categoryType::RIGHT_PAREN)
-                    ) {
-                cout << exp.symbolTable[programLine[i].first];
+            else if (programLine[i].second == categoryType::IDENTIFIER) {
+                string temp;
+                while (programLine[i].second != categoryType::RIGHT_PAREN) {
+                    temp.append(programLine[i].first);
+                    i++;
+                }
+                cout << exp.postEval(exp.inToPost(temp));
             }
         }
         cout << endl;

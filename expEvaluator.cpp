@@ -99,7 +99,7 @@ double expEvaluator::postEval(std::string postExpr) {
         // if IDENTIFIER search symbolTable
         else if (lex.tokenInfo[0][i].second == categoryType::IDENTIFIER) {
             // checks if the IDENTIFIER is loaded in symbolTable
-            if (!symbolTable.count(lex.tokenInfo[0][i].first)) {
+            if (symbolTable.count(lex.tokenInfo[0][i].first) == 0) {
                 cout << "ERROR: INVALID IDENTIFIER / NO VALUE FOUND" << endl;
                 break;
             }
