@@ -40,9 +40,9 @@ void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLin
         // add IDENTIFIER to symbolTable with temp value
         exp.symbolTable.insert({programLine[0].first,"temp"});
         // erase first 2 items from vector
-        programLine.erase(programLine.begin(), programLine.begin() + 1);
+        programLine.erase(programLine.begin(), programLine.begin() + 2);
         for (int i = 0; i < programLine.size(); i++) {
-            programLineTemp.insert(i,programLine[i].first);
+            programLineTemp.append(programLine[i].first);
             cout << "TEMP PROG LINE:" << programLineTemp << endl;
         }
         //exp.postEval(programLine);
