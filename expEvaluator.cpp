@@ -76,7 +76,6 @@ std::string expEvaluator::inToPost(std::string codeInput) {
         postfixVect.append(stackVect.top());
         stackVect.pop();
     }
-    cout << postfixVect << endl;
     return postfixVect;
 }
 
