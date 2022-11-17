@@ -20,6 +20,7 @@ public:
     std::string inToPost(std::string);
     double postEval(std::string);
     int getPrecedence(std::string);
+    void printVariables(void);
 };
 
 #endif

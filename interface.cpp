@@ -84,6 +84,16 @@ void Interface::startInterface()
             pysubi.interpretCode(programCode);
         }
 
+        // show variables
+        else if (input == "show(variables)") {
+            if (expEvaluation.symbolTable.size() == 0) {
+                cout << "No variables stored in memory" << endl;
+            }
+            else {
+                expEvaluation.printVariables();
+            }
+        }
+
         // show tokens
         else if (input == "show(tokens)") {
             if (lexAnalysis.tokenInfo.size() == 0) {

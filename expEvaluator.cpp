@@ -200,3 +200,10 @@ int expEvaluator::getPrecedence(std::string inputChar) {
         return -1;
     }
 }
+
+void expEvaluator::printVariables(void) {
+    cout << "-------- Symbol Table Variables and Values --------" << endl;
+    for (const auto& elem : symbolTable) {
+        cout << elem.first << " = " << elem.second << endl;
+    }
+}
