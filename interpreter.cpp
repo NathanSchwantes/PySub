@@ -38,7 +38,7 @@ void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLin
     string programLineTemp;
     if (programLine[1].second == categoryType::ASSIGNMENT_OP) {
         // add IDENTIFIER to symbolTable with temp value
-        exp.symbolTable({programLine[0].first, temp});
+        exp.symbolTable.insert({programLine[0].first,"temp"});
         // erase first 2 items from vector
         programLine.erase(programLine.begin(), programLine.begin() + 1);
         for (int i = 0; i < programLine.size(); i++) {
