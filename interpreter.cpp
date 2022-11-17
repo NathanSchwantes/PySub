@@ -1,11 +1,13 @@
 #include "interpreter.h"
 #include "lexanalyzer.h"
+#include "expEvaluator.h"
 #include <iostream>
 
 #include <vector>
 #include <string>
 
 LexicalAnalyzer lex; // bring class to this file
+expEvaluator exp; //bring class to this file
 
 void Interpreter::interpretCode(std::vector<std::string>& programCode) {
     // run lexicalAnalysis on code for easier interpretation
@@ -33,7 +35,18 @@ void Interpreter::interpretComment(void) {
 }
 
 void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLine) {
-
+    string programLineTemp;
+    if (programLine[1].second == categoryType::ASSIGNMENT_OP) {
+        // add IDENTIFIER to symbolTable with temp value
+        exp.symbolTable({programLine[0].first, temp});
+        // erase first 2 items from vector
+        programLine.erase(programLine.begin(), programLine.begin() + 1);
+        for (int i = 0; i < programLine.size(); i++) {
+            programLineTemp.insert(i,programLine[i].first);
+            cout << "TEMP PROG LINE:" << programLineTemp << endl;
+        }
+        //exp.postEval(programLine);
+    }
 }
 
 void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
