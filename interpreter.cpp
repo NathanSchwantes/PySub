@@ -33,12 +33,13 @@ void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
     size_t endIter = programLine.size() - 1;
     // checks for balanced parenthesis
     if ((programLine[1].second == categoryType::LEFT_PAREN) && (programLine[endIter].second == categoryType::RIGHT_PAREN)) {
-        for (int i = 2; i < endIter - 1; i++) {
+        for (int i = 2; i < endIter; i++) {
             if (programLine[i].second == categoryType::STRING_LITERAL) {
                 programLine[i].first = Interpreter::removeQuotation(programLine[i].first);
-                cout << programLine[i].first << endl;
+                cout << programLine[i].first;
             }
         }
+        cout << endl;
     }
 }
 

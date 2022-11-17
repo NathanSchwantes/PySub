@@ -10,7 +10,7 @@ private:
     void interpretComment(void);
     void interpretPrint(LexicalAnalyzer::tokenLineType& );
     void interpretAssignment();
-    string removeQuotation(string&);
+    string removeQuotation(string& );
 public:
     void interpretCode(std::vector<std::string>& );
 };
