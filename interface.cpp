@@ -135,8 +135,9 @@ void Interface::startInterface()
             commandHelpData("read");
         }
         
-        else if (lexAnalysis.createTokens(expressionEval)) {
+        else if (isdigit(input[0])) {
             lexAnalysis.tokenInfo.clear();
+            lexAnalysis.createTokens((expressionEval));
             string temp = expEvaluation.inToPost(input);
             cout << expEvaluation.postEval(temp) << endl;
         }
