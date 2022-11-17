@@ -10,6 +10,7 @@
 class expEvaluator {
 private:
     friend class Interface;
+    friend class Interpreter;
 
     typedef std::map<std::string, std::string> symbolTableType;
     symbolTableType symbolTable;
