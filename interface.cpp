@@ -80,6 +80,7 @@ void Interface::startInterface()
             }
         }
 
+        // run
         else if (input == "run") {
             pysubi.interpretCode(programCode);
         }
@@ -144,7 +145,8 @@ void Interface::startInterface()
         else if (input == "read" || input == "read()") {
             commandHelpData("read");
         }
-        
+
+        // expEvaluation if its a digit
         else if (isdigit(input[0])) {
             lexAnalysis.tokenInfo.clear();
             lexAnalysis.createTokens((expressionEval));
