@@ -100,8 +100,7 @@ double expEvaluator::postEval(std::string postExpr) {
         else if (lex.tokenInfo[0][i].second == categoryType::IDENTIFIER) {
             // checks if the IDENTIFIER is loaded in symbolTable
             if (symbolTable.count(lex.tokenInfo[0][i].first) == 0) {
-                cout << "ERROR: INVALID IDENTIFIER / NO VALUE FOUND" << endl;
-                break;
+                cout << endl << "ERROR: INVALID IDENTIFIER / NO VALUE FOUND" << endl;
             }
             string tempValue = symbolTable[lex.tokenInfo[0][i].first];
             infixStack.push(tempValue);

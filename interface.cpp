@@ -89,6 +89,7 @@ void Interface::startInterface()
         else if (input == "show(variables)") {
             if (expEvaluation.symbolTable.size() == 0) {
                 cout << "No variables stored in memory" << endl;
+                expEvaluation.printVariables();
             }
             else {
                 expEvaluation.printVariables();

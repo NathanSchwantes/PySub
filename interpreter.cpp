@@ -38,7 +38,17 @@ void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLin
     string programLineTemp;
     string identifierTemp = programLine[0].first;
     string expressionEvalTemp;
-    if (programLine[1].second == categoryType::ASSIGNMENT_OP) {
+    // if it has KEYWORD such as INPUT
+    if (programLine[1].second == categoryType::ASSIGNMENT_OP && programLine[2].second == categoryType::KEYWORD) {
+        if (programLine[2].first == "input" && programLine[3].second == categoryType::LEFT_PAREN) {
+            string input;
+            cout << removeQuotation(programLine[4].first);
+            getline(cin, input);
+            exp.symbolTable.insert({programLine[0].first, input});
+        }
+    }
+    // if it is just an expression
+    else if (programLine[1].second == categoryType::ASSIGNMENT_OP) {
         // erase first 2 items ex:"X=" from vector
         // leaves us with everything after "="
         programLine.erase(programLine.begin(), programLine.begin() + 2);
@@ -47,6 +57,9 @@ void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLin
         }
         expressionEvalTemp = to_string(exp.postEval((exp.inToPost(programLineTemp))));
         exp.symbolTable.insert({identifierTemp, expressionEvalTemp});
+    }
+    else {
+        cout << "ERROR: INCORRECT SYNTAX" << endl;
     }
 }
 
