@@ -21,6 +21,10 @@ void Interpreter::interpretCode(std::vector<std::string>& programCode) {
         else if (lex.tokenInfo[i][0].second == categoryType::KEYWORD && lex.tokenInfo[i][0].first == "print") {
             Interpreter::interpretPrint(lex.tokenLine);
         }
+        // if IDENTIFIER
+        else if (lex.tokenInfo[i][0].second == categoryType::IDENTIFIER) {
+            Interpreter::interpretAssignment(lex.tokenLine);
+        }
     }
 }
 
@@ -28,7 +32,11 @@ void Interpreter::interpretComment(void) {
     // do nothing
 }
 
-void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
+void Interpreter::interpretAssignment(programLine) {
+
+}
+
+void Interpreter::interpretPrint(programLine) {
     // get iterator for end of programLine
     size_t endIter = programLine.size() - 1;
     // checks for balanced parenthesis
