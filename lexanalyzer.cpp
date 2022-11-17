@@ -198,7 +198,7 @@ bool LexicalAnalyzer::createTokens(vector<string>& inputCode) {
 			// ASSIGNMENT_OP
 			else if (inputCode[i][j] == '=') {
 			pair.first = "=";
-			pair.second = categoryType::RELATIONAL_OP;
+			pair.second = categoryType::ASSIGNMENT_OP;
 			tokenLine.push_back(pair);
 			}
 
