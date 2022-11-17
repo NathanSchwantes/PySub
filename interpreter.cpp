@@ -32,11 +32,11 @@ void Interpreter::interpretComment(void) {
     // do nothing
 }
 
-void Interpreter::interpretAssignment(programLine) {
+void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLine) {
 
 }
 
-void Interpreter::interpretPrint(programLine) {
+void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
     // get iterator for end of programLine
     size_t endIter = programLine.size() - 1;
     // checks for balanced parenthesis
