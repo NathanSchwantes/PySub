@@ -12,7 +12,7 @@ private:
     void interpretAssignment(LexicalAnalyzer::tokenLineType& );
     string removeQuotation(string& );
 public:
-    void interpretCode(std::vector<std::string>& );
+    bool interpretCode(std::vector<std::string>& );
 };
 
 #endif

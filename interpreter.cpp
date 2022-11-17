@@ -9,7 +9,7 @@
 LexicalAnalyzer lex; // bring class to this file
 expEvaluator exp; //bring class to this file
 
-void Interpreter::interpretCode(std::vector<std::string>& programCode) {
+bool Interpreter::interpretCode(std::vector<std::string>& programCode) {
     // run lexicalAnalysis on code for easier interpretation
     lex.createTokens(programCode);
     for (int i = 0; i < lex.tokenInfo.size(); i++) {
@@ -27,7 +27,11 @@ void Interpreter::interpretCode(std::vector<std::string>& programCode) {
         else if (lex.tokenInfo[i][0].second == categoryType::IDENTIFIER) {
             Interpreter::interpretAssignment(lex.tokenLine);
         }
+        else {
+            return false;
+        }
     }
+    return true;
 }
 
 void Interpreter::interpretComment(void) {

@@ -83,6 +83,8 @@ void Interface::startInterface()
         // run
         else if (input == "run") {
             pysubi.interpretCode(programCode);
+            cout << "SYMBOL TABLE SIZE after RUN: " << expEvaluation.symbolTable.size() << endl;
+            cout << "tokenINFo size" << lexAnalysis.tokenInfo.size() << endl;
         }
 
         // show variables
