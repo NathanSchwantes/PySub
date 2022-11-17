@@ -65,7 +65,7 @@ void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
                 cout << programLine[i].first;
             }
             // checks for correct syntax within print() statement
-            else if(
+            else if (
                     programLine[i].second == categoryType::IDENTIFIER &&
                     (programLine[i+1].second == categoryType::COMMA || programLine[i+1].second == categoryType::RIGHT_PAREN)
                     ) {
