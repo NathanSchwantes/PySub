@@ -44,11 +44,16 @@ void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLin
     string expressionEvalTemp;
     // if it has KEYWORD such as INPUT
     if (programLine[1].second == categoryType::ASSIGNMENT_OP && programLine[2].second == categoryType::KEYWORD) {
-        if (programLine[2].first == "input" && programLine[3].second == categoryType::LEFT_PAREN) {
-            string input;
-            cout << removeQuotation(programLine[4].first);
-            getline(cin, input);
-            expEval.symbolTable.insert({programLine[0].first, input});
+        for (int i = 2; i < programLine.size(); i++) {
+            if (programLine[i].first == "input" && programLine[i+1].second == categoryType::LEFT_PAREN) {
+                string input;
+                cout << removeQuotation(programLine[i+2].first);
+                getline(cin, input);
+                expEval.symbolTable.insert({ programLine[0].first, input });
+            }
+            else if (programLine[i].first == "int" && programLine[i + 1].second == categoryType::LEFT_PAREN) {
+                // do nothing, int is default value
+            }
         }
     }
     // if it is just an expression
