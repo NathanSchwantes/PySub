@@ -7,7 +7,7 @@
 #include <string>
 
 LexicalAnalyzer lex; // bring class to this file
-expEvaluator exp; //bring class to this file
+expEvaluator expEval; //bring class to this file
 
 bool Interpreter::interpretCode(std::vector<std::string>& programCode) {
     // run lexicalAnalysis on code for easier interpretation
@@ -48,7 +48,7 @@ void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLin
             string input;
             cout << removeQuotation(programLine[4].first);
             getline(cin, input);
-            exp.symbolTable.insert({programLine[0].first, input});
+            expEval.symbolTable.insert({programLine[0].first, input});
         }
     }
     // if it is just an expression
@@ -59,8 +59,8 @@ void Interpreter::interpretAssignment(LexicalAnalyzer::tokenLineType& programLin
         for (int i = 0; i < programLine.size(); i++) {
             programLineTemp.append(programLine[i].first);
         }
-        expressionEvalTemp = to_string(exp.postEval((exp.inToPost(programLineTemp))));
-        exp.symbolTable.insert({identifierTemp, expressionEvalTemp});
+        expressionEvalTemp = to_string(expEval.postEval((expEval.inToPost(programLineTemp))));
+        expEval.symbolTable.insert({identifierTemp, expressionEvalTemp});
     }
     else {
         cout << "ERROR: INCORRECT SYNTAX" << endl;
@@ -88,7 +88,7 @@ void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
                     temp.append(programLine[i].first);
                     i++;
                 }
-                cout << exp.postEval(exp.inToPost(temp));
+                cout << expEval.postEval(expEval.inToPost(temp));
             }
         }
         cout << endl;
