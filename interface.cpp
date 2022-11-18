@@ -4,6 +4,7 @@
 #include "expEvaluator.h"
 #include "interpreter.h"
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ void Interface::startInterface()
     cout << "Type 'help' for more information or 'quit' to exit" << endl;
 
     bool quitStatus = false;
-
+    
     while (!quitStatus) {
 
         // accepts user input
@@ -38,7 +39,6 @@ void Interface::startInterface()
             quitStatus = true;
         }
 
-        // read
         // gets fileName and fileExtension from input
         else if (input.substr(0, 5) == "read(" && input.size() > 8 && input.find(".") != string::npos) {
             size_t extensionIndex;
@@ -82,16 +82,18 @@ void Interface::startInterface()
 
         // run
         else if (input == "run") {
-            pysubi.interpretCode(programCode);
-            cout << "SYMBOL TABLE SIZE after RUN: " << expEvaluation.symbolTable.size() << endl;
-            cout << "tokenINFo size" << lexAnalysis.tokenInfo.size() << endl;
+            if (lexAnalysis.tokenInfo.size() == 0) {
+                cout << "NO FILE IN MEMORY" << endl;
+            }
+            else if (!pysubi.interpretCode(programCode)) {
+                cout << "ERROR: COULD NOT INTERPRET CODE" << endl;
+            }
         }
 
         // show variables
         else if (input == "show(variables)") {
             if (expEvaluation.symbolTable.size() == 0) {
                 cout << "No variables stored in memory" << endl;
-                expEvaluation.printVariables();
             }
             else {
                 expEvaluation.printVariables();

@@ -31,6 +31,7 @@ bool Interpreter::interpretCode(std::vector<std::string>& programCode) {
             return false;
         }
     }
+    expEval.printVariables();
     return true;
 }
 
@@ -82,7 +83,8 @@ void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
             if (
                     programLine[i].second == categoryType::STRING_LITERAL &&
                     (programLine[i+1].second == categoryType::COMMA || programLine[i+1].second == categoryType::RIGHT_PAREN)
-                    ) {
+               ) {
+                // prints out the statement if it is STRING_LITERAL
                 programLine[i].first = Interpreter::removeQuotation(programLine[i].first);
                 cout << programLine[i].first;
             }
@@ -90,9 +92,11 @@ void Interpreter::interpretPrint(LexicalAnalyzer::tokenLineType& programLine) {
             else if (programLine[i].second == categoryType::IDENTIFIER) {
                 string temp;
                 while (programLine[i].second != categoryType::RIGHT_PAREN) {
+                    // attaches expression to a single string variable
                     temp.append(programLine[i].first);
                     i++;
                 }
+                // evaluates that expression using expEvaluator class
                 cout << expEval.postEval(expEval.inToPost(temp));
             }
         }

@@ -52,8 +52,6 @@ std::string expEvaluator::inToPost(std::string codeInput) {
         // if IDENTIFIER
         else if (lex.tokenInfo[0][i].second == categoryType::IDENTIFIER) {
             postfixVect.append(lex.tokenInfo[0][i].first + " ");
-            // find IDENTIFIER in symbolTable structure
-            symbolTable.find({lex.tokenInfo[0][i].first});
         }
         // if OPERATOR
         else if (
