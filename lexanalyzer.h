@@ -21,7 +21,8 @@ enum class categoryType {
 	COMMA,
 	COMMENT,
 	INDENT,
-	UNKNOWN
+	UNKNOWN ,
+	CONDITIONAL
 };
 
 class LexicalAnalyzer {

@@ -64,16 +64,23 @@ bool LexicalAnalyzer::createTokens(vector<string>& inputCode) {
 				// KEYWORD
 				if (
 					tokenText == "print" ||
-					tokenText == "if" ||
 					tokenText == "elif" ||
 					tokenText == "else" ||
-					tokenText == "while" ||
 					tokenText == "int" ||
 					tokenText == "input"
 					) {
                     pair.first = tokenText;
                     pair.second = categoryType::KEYWORD;
                     tokenLine.push_back(pair);
+				}
+
+				else if (
+					tokenText == "if" ||
+					tokenText == "while"
+					) {
+					pair.first = tokenText;
+					pair.second = categoryType::CONDITIONAL;
+					tokenLine.push_back(pair);
 				}
 
 				// LOGICAL_OP
