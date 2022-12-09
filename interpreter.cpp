@@ -29,15 +29,9 @@ bool Interpreter::interpretCode(std::vector<std::string>& programCode) {
         }
         // if CONDITIONAL
         else if (lex.tokenInfo[i][0].second == categoryType::CONDITIONAL && lex.tokenInfo[i][(lex.tokenInfo[i].size() - 1)].second == categoryType::COLON) {
-            std::string conditionalString;
-            size_t statementEnd;
-            statementEnd = lex.tokenInfo[i].size() - 1;
-            // encapsulates data within IF statement for evaluation
-            for (int j = 1; j < statementEnd; j++) {
-                conditionalString.append(lex.tokenInfo[i][j].first);
+            if (Interpreter::evaluateConditional(i)) {
+                cout << " I EAT POOP " << endl;
             }
-            cout << conditionalString << endl;
-            cout << expEval.postEval(expEval.inToPost(conditionalString)) << endl;
         }
         else {
             return false;
@@ -126,4 +120,26 @@ string Interpreter::removeQuotation(string& stringLiteral) {
         stringLiteral.erase(std::remove(stringLiteral.begin(), stringLiteral.end(), '\''), stringLiteral.end());
     }
     return stringLiteral;
+}
+
+bool Interpreter::evaluateConditional(int iter) {
+    std::string conditionalString;
+    size_t statementEnd;
+    int statementBool;
+    statementEnd = lex.tokenInfo[iter].size() - 1;
+    // encapsulates data within IF statement for evaluation
+    for (int j = 1; j < statementEnd; j++) {
+        conditionalString.append(lex.tokenInfo[iter][j].first);
+    }
+    statementBool = expEval.postEval(expEval.inToPost(conditionalString));
+    if (statementBool == 0) {
+        return false;
+    }
+    else if (statementBool == 1) {
+        return true;
+    }
+    else {
+        cout << "ERROR IN EVALUATING EXPRESSION WITHIN CONDITIONAL" << endl;
+        return -1;
+    }
 }
