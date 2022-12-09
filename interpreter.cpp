@@ -32,8 +32,9 @@ bool Interpreter::interpretCode(std::vector<std::string>& programCode) {
             std::vector<std::string> conditionalString;
             size_t statementEnd;
             statementEnd = lex.tokenInfo[i].size() - 2;
+            // encapsulates data within IF statement for evaluation
             for (int j = 0; j < statementEnd; j++) {
-
+                conditionalString.push_back(lex.tokenInfo[i][j].first);
             }
         }
         else {
