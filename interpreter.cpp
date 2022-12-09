@@ -27,6 +27,10 @@ bool Interpreter::interpretCode(std::vector<std::string>& programCode) {
         else if (lex.tokenInfo[i][0].second == categoryType::IDENTIFIER) {
             Interpreter::interpretAssignment(lex.tokenLine);
         }
+        // if CONDITIONAL
+        else if (lex.tokenInfo[i][0].second == categoryType::CONDITIONAL && lex.tokenInfo[i][(lex.tokenInfo[i].size() - 1)].second == categoryType::COLON) {
+            cout << "I EAT POOP" << endl;
+        }
         else {
             return false;
         }

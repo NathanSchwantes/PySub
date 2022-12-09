@@ -266,6 +266,7 @@ void LexicalAnalyzer::printTokens(vector<vector<std::pair<string, categoryType>>
 			case categoryType::COMMENT: cout << "COMMENT" << endl; break;
 			case categoryType::INDENT: cout << "INDENT" << endl; break;
 			case categoryType::UNKNOWN: cout << "UNKNOWN" << endl; break;
+			case categoryType::CONDITIONAL: cout << "CONDITIONAL" << endl; break;
 			}
 		}
 		cout << "--------------------------------------" << endl;
