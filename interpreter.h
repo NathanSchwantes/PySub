@@ -11,6 +11,7 @@ private:
     void interpretPrint(LexicalAnalyzer::tokenLineType& );
     void interpretAssignment(LexicalAnalyzer::tokenLineType& );
     bool evaluateConditional(int);
+    vector<string> encapsulateConditional(int);
     string removeQuotation(string& );
 public:
     bool interpretCode(std::vector<std::string>& );

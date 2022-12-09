@@ -30,7 +30,8 @@ bool Interpreter::interpretCode(std::vector<std::string>& programCode) {
         // if CONDITIONAL
         else if (lex.tokenInfo[i][0].second == categoryType::CONDITIONAL && lex.tokenInfo[i][(lex.tokenInfo[i].size() - 1)].second == categoryType::COLON) {
             if (Interpreter::evaluateConditional(i)) {
-                cout << " I EAT POOP " << endl;
+                int indentIter;
+                Interpreter::encapsulateConditional(i + 1);
             }
         }
         else {
@@ -142,4 +143,18 @@ bool Interpreter::evaluateConditional(int iter) {
         cout << "ERROR IN EVALUATING EXPRESSION WITHIN CONDITIONAL" << endl;
         return -1;
     }
+}
+
+vector<string> encapsulateConditional(int iter) {
+    vector<string> conditionalVector;
+    while (lex.tokenInfo[iter][0].second == categoryType::INDENT) {
+        for (int i = 1; i < lex.tokenInfo[iter].size(); i++) {
+            conditionalVector[i-1].append(lex.tokenInfo[iter][i].first);
+        }
+        iter++;
+    }
+    for (int j = 0; j < conditionalVector.size(); j++) {
+        cout << conditionalVector[j] << endl;
+    }
+    return conditionalVector;
 }
