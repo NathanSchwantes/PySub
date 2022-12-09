@@ -29,13 +29,15 @@ bool Interpreter::interpretCode(std::vector<std::string>& programCode) {
         }
         // if CONDITIONAL
         else if (lex.tokenInfo[i][0].second == categoryType::CONDITIONAL && lex.tokenInfo[i][(lex.tokenInfo[i].size() - 1)].second == categoryType::COLON) {
-            std::vector<std::string> conditionalString;
+            std::string conditionalString;
             size_t statementEnd;
-            statementEnd = lex.tokenInfo[i].size() - 2;
+            statementEnd = lex.tokenInfo[i].size() - 1;
             // encapsulates data within IF statement for evaluation
-            for (int j = 0; j < statementEnd; j++) {
-                conditionalString.push_back(lex.tokenInfo[i][j].first);
+            for (int j = 1; j < statementEnd; j++) {
+                conditionalString.append(lex.tokenInfo[i][j].first);
             }
+            cout << conditionalString << endl;
+            cout << expEval.postEval(expEval.inToPost(conditionalString)) << endl;
         }
         else {
             return false;
